@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // API 기본 주소 설정
-const API_BASE_URL = "/api";
+const API_BASE_URL = "http://aengmung.tplinkdns.com:8010";
 
 // Axios 인스턴스 생성
 const apiClient = axios.create({
