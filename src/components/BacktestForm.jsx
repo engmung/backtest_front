@@ -3,13 +3,13 @@ import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { naturalBacktest } from "../services/api";
 
-const examplePrompts = ["삼성전자", "금", "비트코인", "QQQ"];
+const examplePrompts = ["삼성전자", "금", "비트코인", "엔비디아"];
 
 const fullPrompts = {
   삼성전자: "삼성전자를 3개월 전에 100만원어치 샀다면 지금 얼마가 되었을까?",
-  금: "1년 전, 금에 1000만원 투자했다면 수익이 얼마나 났을까요?",
+  금: "1년 전, 금에 1000만원 투자했다면 수익이 얼마나 났을까?",
   비트코인: "비트코인을 3년전에 100만원어치 사서 1년전에 팔았다면?",
-  QQQ: "QQQ ETF 1년 전 200만원 투자 결과",
+  엔비디아: "엔비디아 1년 전 200만원 투자 결과",
 };
 
 const BacktestForm = ({ setBacktestResult }) => {
