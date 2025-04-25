@@ -121,7 +121,7 @@ body {
 /* --- 채팅 영역 --- */
 .chat-history {
   min-height: 150px;
-  max-height: 300px;
+  max-height: 300px; /* 최대 높이 고정 */
   height: auto;
   background-color: var(--background-color);
   border-radius: 12px;
@@ -135,6 +135,7 @@ body {
   /* 스크롤바 숨기기 */
   -ms-overflow-style: none; /* IE, Edge */
   scrollbar-width: none; /* Firefox */
+  scroll-behavior: smooth; /* 부드러운 스크롤 */
 }
 
 /* Chrome, Safari를 위한 스크롤바 숨기기 */
@@ -202,6 +203,7 @@ body {
   gap: 10px;
   margin-bottom: 0.8rem;
   position: relative;
+  align-items: flex-end; /* 버튼을 텍스트 영역 하단에 정렬 */
 }
 
 /* 채팅 입력창 스타일 수정 - textarea로 변경 */

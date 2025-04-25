@@ -24,12 +24,28 @@ const BacktestForm = ({ setBacktestResult }) => {
     },
   ]);
   const chatEndRef = useRef(null);
+  const textareaRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // 채팅이 업데이트될 때마다 스크롤을 아래로 이동
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    // 채팅이 업데이트될 때마다 채팅창 내부에서만 스크롤을 아래로 이동
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
   }, [chatHistory]);
+
+  // 텍스트 입력 영역 높이 자동 조절
+  useEffect(() => {
+    const adjustTextareaHeight = () => {
+      const textarea = textareaRef.current;
+      if (textarea) {
+        textarea.style.height = "auto";
+        textarea.style.height = `${Math.min(textarea.scrollHeight, 150)}px`;
+      }
+    };
+
+    adjustTextareaHeight();
+  }, [prompt]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -110,6 +126,16 @@ const BacktestForm = ({ setBacktestResult }) => {
 
   const handleExampleClick = (example) => {
     setPrompt(fullPrompts[example] || example);
+    // textarea 높이 즉시 조정
+    setTimeout(() => {
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "auto";
+        textareaRef.current.style.height = `${Math.min(
+          textareaRef.current.scrollHeight,
+          150
+        )}px`;
+      }
+    }, 0);
   };
 
   return (
@@ -144,13 +170,14 @@ const BacktestForm = ({ setBacktestResult }) => {
       {/* 채팅 입력 영역 */}
       <form onSubmit={handleSubmit}>
         <div className="chat-input-container">
-          <input
-            type="text"
+          <textarea
+            ref={textareaRef}
             className="chat-input"
             placeholder="투자 시나리오를 입력하세요"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             disabled={loading}
+            rows="1"
             required
           />
           <button type="submit" className="send-button" disabled={loading}>

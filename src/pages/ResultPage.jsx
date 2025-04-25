@@ -77,7 +77,32 @@ const ResultPage = ({ backtestResult }) => {
     if (!backtestResult) {
       navigate("/");
     }
+
+    // 결과 페이지로 이동 시 페이지 상단으로 스크롤
+    window.scrollTo(0, 0);
   }, [backtestResult, navigate]);
+
+  // 이것이 추가할 새로운 useEffect입니다
+  useEffect(() => {
+    // 채팅창 내부에서만 스크롤 되도록 설정
+    const chatContainer = document.querySelector(".chat-history");
+
+    // 스크롤 이벤트 핸들러
+    const handleScroll = (e) => {
+      // 채팅 컨테이너 내부의 이벤트가 아니면 처리하지 않음
+      if (!chatContainer || !chatContainer.contains(e.target)) {
+        // 다른 영역의 스크롤은 필요한 경우에만 허용
+      }
+    };
+
+    // 이벤트 리스너 등록
+    window.addEventListener("scroll", handleScroll, true);
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("scroll", handleScroll, true);
+    };
+  }, []);
 
   if (!backtestResult) {
     return null;
