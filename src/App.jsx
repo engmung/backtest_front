@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -6,7 +6,7 @@ import "./App.css";
 // 컴포넌트 임포트
 import HomePage from "./pages/HomePage";
 import ResultPage from "./pages/ResultPage";
-import Footer from "./components/Footer"; // Footer 임포트 추가
+import Footer from "./components/Footer";
 
 function App() {
   // 백테스트 결과를 저장할 상태
@@ -26,6 +26,7 @@ function App() {
           />
         </Routes>
         <Footer />
+        <Analytics /> {/* 여기에 Analytics 컴포넌트 추가 */}
       </div>
     </Router>
   );
