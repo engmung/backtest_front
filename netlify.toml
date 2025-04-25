@@ -1,15 +1,13 @@
 [build]
   command = "npm run build"
-  publish = "build"  # 또는 "dist" (Vite 사용 시)
+  publish = "dist"  # build를 dist로 변경
 
-# 라즈베리 파이 API 프록시 설정
 [[redirects]]
   from = "/api/*"
   to = "http://aengmung.tplinkdns.com:8010/:splat"
   status = 200
   force = true
 
-# SPA 설정 (React 라우터 지원)
 [[redirects]]
   from = "/*"
   to = "/index.html"
