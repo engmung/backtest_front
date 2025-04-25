@@ -8,7 +8,9 @@ const HomePage = ({ setBacktestResult }) => {
         <Link to="/" className="logo-link">
           <div className="app-logo">그때 살껄</div>
         </Link>
-        <p className="tagline">과거 투자의 현재 가치를 간단하게 확인하세요</p>
+        <p className="tagline">
+          아주 쉬운 모의투자, 과거 투자의 가치를 손쉽게 확인하세요
+        </p>
       </header>
 
       <div className="main-content">
