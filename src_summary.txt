@@ -1,0 +1,3639 @@
+﻿
+Directory: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\components
+
+
+Directory: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\pages
+
+
+Directory: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\services
+
+
+Directory: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\utils
+
+
+File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\App.css
+
+.tab-description {
+  margin-top: 15px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.volatility-description {
+  margin: 15px 0 20px 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  padding: 0 5px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 15px;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Noto+Sans+KR:wght@300;400;700&display=swap");
+
+:root {
+  --background-color: #1a202c; /* 다크 네이비 */
+  --surface-color: #2d3748; /* 약간 밝은 네이비 */
+  --primary-color: #f6e05e; /* 골드 (강조) */
+  --secondary-color: #a0aec0; /* 밝은 회색 (보조) */
+  --text-primary: #e2e8f0; /* 밝은 텍스트 */
+  --text-secondary: #a0aec0; /* 회색 텍스트 */
+  --error-color: #feb2b2; /* 연한 빨강 (에러) */
+  --success-color: #9ae6b4; /* 연한 녹색 (성공) */
+  --loss-color: #feb2b2; /* 연한 빨강 (손실) */
+  --border-color: #4a5568;
+  --input-bg: #2d3748;
+  --chat-bot-bg: #3a475a; /* 챗봇 메시지 배경 */
+  --chat-user-bg: #4a5568; /* 사용자 메시지 배경 */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #0f172a; /* 기본 배경색 */
+  background-image: radial-gradient(
+      ellipse at top left,
+      rgba(139, 92, 246, 0.3) 0%,
+      transparent 50%
+    ),
+    /* 연보라 */
+      radial-gradient(
+        ellipse at top right,
+        rgba(59, 130, 246, 0.3) 0%,
+        transparent 50%
+      ),
+    /* 밝은 파랑 */
+      radial-gradient(
+        ellipse at bottom left,
+        rgba(34, 197, 94, 0.2) 0%,
+        transparent 50%
+      ),
+    /* 연두 */
+      radial-gradient(
+        ellipse at bottom right,
+        rgba(20, 83, 45, 0.3) 0%,
+        transparent 60%
+      ); /* 짙은 녹색 */
+  color: var(--text-primary);
+  font-family: "Noto Sans KR", "Montserrat", sans-serif;
+  line-height: 1.7;
+}
+
+.container {
+  width: 95%;
+  max-width: 800px; /* 최대 너비 조정 */
+  margin: 1.5rem auto; /* 상단 여백 줄임 */
+}
+
+/* --- 브랜딩 요소 --- */
+.branding {
+  text-align: center;
+  margin-bottom: 1.5rem; /* 여백 줄임 */
+  padding-bottom: 0.8rem;
+}
+
+.app-logo {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color); /* 골드 색상 적용 */
+  margin-bottom: 0.2rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.tagline {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+/* --- 레이아웃 --- */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.content-column {
+  background-color: var(--surface-color);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* --- 챗 컨테이너 --- */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* --- 채팅 영역 --- */
+.chat-history {
+  min-height: 150px;
+  max-height: 300px;
+  height: auto;
+  background-color: var(--background-color);
+  border-radius: 12px;
+  padding: 12px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 0.8rem;
+  /* 스크롤바 숨기기 */
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Chrome, Safari를 위한 스크롤바 숨기기 */
+.chat-history::-webkit-scrollbar {
+  display: none;
+}
+
+.result-chat {
+  height: auto;
+  max-height: none;
+}
+
+.user-message,
+.system-message {
+  padding: 10px 14px;
+  border-radius: 18px;
+  max-width: 80%;
+  margin-bottom: 6px;
+  animation: fadeIn 0.3s ease;
+  word-break: break-word;
+}
+
+.user-message {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  font-weight: 500;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.system-message {
+  background-color: var(--chat-bot-bg);
+  color: var(--text-primary);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.error-message {
+  background-color: rgba(254, 178, 178, 0.2);
+  color: var(--error-color);
+  border: 1px dashed var(--error-color);
+}
+
+.loading-message {
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- 버튼 및 입력 영역 --- */
+.chat-input-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 0.8rem;
+  position: relative;
+}
+
+/* 채팅 입력창 스타일 수정 - textarea로 변경 */
+.chat-input {
+  flex-grow: 1;
+  padding: 12px 15px;
+  background-color: var(--input-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 25px;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  line-height: 1.5;
+  resize: none;
+  overflow-y: hidden;
+  min-height: 42px;
+  max-height: 150px;
+  font-family: inherit;
+  /* 스크롤바 숨기기 */
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Chrome, Safari를 위한 스크롤바 숨기기 */
+.chat-input::-webkit-scrollbar {
+  display: none;
+}
+
+.chat-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(246, 224, 94, 0.3), 0 3px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.send-button {
+  background: linear-gradient(135deg, var(--primary-color), #ecc94b);
+  color: var(--background-color);
+  font-weight: 700;
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.send-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.send-button:active {
+  transform: translateY(0);
+}
+
+/* --- 예시 프롬프트 버튼 --- */
+.example-prompts {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 0.5rem 0 0.2rem; /* 간격 조정 */
+}
+
+.prompt-button {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  padding: 6px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.prompt-button:hover {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+/* --- 결과 영역 --- */
+.results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 0.8rem;
+}
+
+.investment-summary {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.amount {
+  color: var(--primary-color);
+}
+
+.profit {
+  color: var(--success-color);
+}
+
+.loss {
+  color: var(--loss-color);
+}
+
+.chart-container {
+  width: 100%;
+  height: 450px;
+  background-color: var(--background-color);
+  border-radius: 12px;
+  margin-bottom: 0.8rem;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  padding-top: 10px; /* 그래프를 아래로 10px 내림 */
+}
+
+/* Fix for Plotly charts */
+.js-plotly-plot,
+.plot-container {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.main-svg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.price-chart {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Key metrics styles */
+.key-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  text-align: center;
+}
+
+.metric-item {
+  background-color: var(--background-color);
+  padding: 0.8rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.metric-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.metric-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+}
+
+.metric-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.metric-value.profit {
+  color: var(--success-color);
+}
+
+.metric-value.loss {
+  color: var(--loss-color);
+}
+
+/* --- 고급 분석 영역 --- */
+.advanced-section {
+  margin-top: 1rem;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.advanced-toggle {
+  width: 100%;
+  background-color: rgba(246, 224, 94, 0.1);
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 1.2rem; /* 메트릭 박스와의 간격 추가 */
+  margin-bottom: 1rem;
+}
+
+.advanced-toggle:hover {
+  background-color: rgba(246, 224, 94, 0.2);
+  transform: translateY(-1px);
+}
+
+.advanced-content {
+  display: none;
+  padding: 1rem;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-top: 0.8rem;
+}
+
+.advanced-content.show {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+.advanced-tabs {
+  display: flex;
+  gap: 5px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 1rem;
+  overflow-x: auto;
+  /* 스크롤바 숨기기 */
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Chrome, Safari를 위한 스크롤바 숨기기 */
+.advanced-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.advanced-tab {
+  background: transparent;
+  color: var(--text-secondary);
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  font-size: 0.9rem;
+}
+
+.advanced-tab.active {
+  color: var(--primary-color);
+}
+
+.advanced-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+}
+
+.advanced-tab:hover:not(.active) {
+  color: var(--text-primary);
+}
+
+.advanced-tab-content {
+  display: none;
+}
+
+.advanced-tab-content.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+.volatility-description {
+  margin: 15px 0 20px 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  padding: 0 5px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 15px;
+}
+
+.technical-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.technical-item {
+  background-color: var(--surface-color);
+  padding: 0.8rem;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.technical-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.technical-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+.technical-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* --- 네비게이션 요소 --- */
+/* --- 네비게이션 요소 --- */
+.navigation-elements {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.2rem;
+  width: 100%;
+}
+
+.nav-button {
+  background: linear-gradient(135deg, var(--primary-color), #ecc94b);
+  color: var(--background-color);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 내부 콘텐츠 중앙 정렬 */
+  gap: 8px;
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.nav-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.nav-button i {
+  font-size: 1.1rem;
+  margin: 0; /* 기존 마진 제거 */
+}
+
+/* 스크롤바 스타일링 - 전역 스크롤바 숨김 */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* 모든 요소에 스크롤바 숨김 적용 */
+* {
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .app-logo {
+    font-size: 1.8rem; /* 더 작게 조정 */
+  }
+
+  .tagline {
+    font-size: 0.8rem; /* 더 작게 조정 */
+  }
+
+  .chat-history {
+    max-height: 280px; /* 채팅창 높이 증가 */
+  }
+
+  .user-message,
+  .system-message {
+    font-size: 0.85rem; /* 더 작은 글자 크기 */
+    padding: 8px 12px;
+    margin-bottom: 4px; /* 간격 줄임 */
+  }
+
+  .chat-input {
+    font-size: 0.85rem; /* 더 작은 글자 크기 */
+    padding: 10px 12px;
+    min-height: 38px;
+  }
+
+  .investment-summary {
+    font-size: 1rem; /* 더 작게 조정 */
+  }
+
+  .key-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-item {
+    padding: 0.6rem; /* 패딩 줄임 */
+  }
+
+  .metric-label {
+    font-size: 0.75rem; /* 더 작게 조정 */
+  }
+
+  .metric-value {
+    font-size: 0.95rem; /* 더 작게 조정 */
+  }
+
+  .technical-info {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* 모바일에서 크기 조정 */
+  .technical-label {
+    font-size: 0.7rem;
+  }
+
+  .technical-value {
+    font-size: 0.85rem;
+  }
+
+  .price-trend-info {
+    font-size: 0.7rem !important;
+  }
+
+  .tab-description,
+  .volatility-description {
+    font-size: 0.8rem;
+  }
+}
+
+/* Fix for Bootstrap components */
+.card {
+  background-color: transparent;
+  border: none;
+}
+
+.card-body {
+  padding: 0;
+}
+
+/* 간소화된 Footer 스타일 - App.css 파일 하단에 추가 */
+
+.simple-footer {
+  margin-top: 2rem;
+  padding: 1.2rem;
+  background-color: var(--surface-color);
+  border-top: 1px solid var(--border-color);
+  border-radius: 12px;
+  text-align: center;
+  width: 95%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.simple-footer p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0.5rem 0;
+}
+
+.disclaimer {
+  font-size: 0.8rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+}
+
+.copyright {
+  font-size: 0.8rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 0.8rem;
+}
+
+.version {
+  display: inline-block;
+  background-color: rgba(246, 224, 94, 0.2);
+  color: var(--primary-color);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+}
+
+/* 모바일 반응형 */
+/* 간소화된 Footer 스타일 - App.css 파일 하단에 추가 */
+
+.minimal-footer {
+  margin-top: 2rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  width: 95%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.minimal-footer p {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .minimal-footer {
+    padding: 0.8rem 0;
+  }
+
+  .footer-service {
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .footer-divider {
+    display: none; /* 모바일에서는 구분선 숨김 */
+  }
+}
+
+/* App.css에 추가할 로고 링크 스타일 */
+
+.logo-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.logo-link:hover .app-logo {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  transform: translateY(-2px);
+  transition: all 0.2s ease;
+}
+
+
+File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\App.jsx
+
+import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+
+// 컴포넌트 임포트
+import HomePage from "./pages/HomePage";
+import ResultPage from "./pages/ResultPage";
+import Footer from "./components/Footer"; // Footer 임포트 추가
+
+function App() {
+  // 백테스트 결과를 저장할 상태
+  const [backtestResult, setBacktestResult] = useState(null);
+
+  return (
+    <Router>
+      <div className="app-container">
+        <Routes>
+          <Route
+            path="/"
+            element={<HomePage setBacktestResult={setBacktestResult} />}
+          />
+          <Route
+            path="/result"
+            element={<ResultPage backtestResult={backtestResult} />}
+          />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+
+
+File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\index.css
+
+/* 기본 리셋 및 전역 스타일 */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Noto+Sans+KR:wght@300;400;700&display=swap");
+
+:root {
+  --background-color: #1a202c; /* 다크 네이비 */
+  --surface-color: #2d3748; /* 약간 밝은 네이비 */
+  --primary-color: #f6e05e; /* 골드 (강조) */
+  --secondary-color: #a0aec0; /* 밝은 회색 (보조) */
+  --text-primary: #e2e8f0; /* 밝은 텍스트 */
+  --text-secondary: #a0aec0; /* 회색 텍스트 */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  font-family: "Noto Sans KR", "Montserrat", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 스크롤바 스타일링 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+
+File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\index.js
+
+
+File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\main.jsx
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+
+Directory: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\components\charts
+
+
+File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\components\AdvancedAnalysisPanel.jsx
+
+import { useState } from "react";
+import { Card, Row, Col, Form, Button } from "react-bootstrap";
+import Plot from "react-plotly.js";
+
+// 다양한 기술적 지표 계산 함수들
+const calculateIndicators = (dailyData, options = {}) => {
+  if (!dailyData || dailyData.length < 2) return null;
+
+  const sortedData = [...dailyData].sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
+  const result = {
+    dates: sortedData.map((day) => day.date),
+    prices: sortedData.map((day) => day.close),
+  };
+
+  // 이동평균 계산
+  if (options.ma) {
+    const periods = options.ma.periods || [20, 50, 200];
+    periods.forEach((period) => {
+      if (sortedData.length >= period) {
+        result[`ma${period}`] = [];
+
+        for (let i = period - 1; i < sortedData.length; i++) {
+          const slice = sortedData.slice(i - period + 1, i + 1);
+          const sum = slice.reduce((total, day) => total + day.close, 0);
+          const avg = sum / period;
+
+          result[`ma${period}`].push({
+            date: sortedData[i].date,
+            value: avg,
+          });
+        }
+      }
+    });
+  }
+
+  // 볼린저 밴드 계산
+  if (options.bollinger) {
+    const period = options.bollinger.period || 20;
+    const stdDevMultiplier = options.bollinger.stdDevMultiplier || 2;
+
+    if (sortedData.length >= period) {
+      result.bollingerMiddle = [];
+      result.bollingerUpper = [];
+      result.bollingerLower = [];
+
+      for (let i = period - 1; i < sortedData.length; i++) {
+        const slice = sortedData.slice(i - period + 1, i + 1);
+        const prices = slice.map((day) => day.close);
+
+        // 이동평균 (중간선)
+        const mean = prices.reduce((sum, price) => sum + price, 0) / period;
+
+        // 표준편차 계산
+        const variance =
+          prices.reduce((sum, price) => sum + Math.pow(price - mean, 2), 0) /
+          period;
+        const stdDev = Math.sqrt(variance);
+
+        // 상단/하단 밴드
+        const upper = mean + stdDev * stdDevMultiplier;
+        const lower = mean - stdDev * stdDevMultiplier;
+
+        result.bollingerMiddle.push({ date: sortedData[i].date, value: mean });
+        result.bollingerUpper.push({ date: sortedData[i].date, value: upper });
+        result.bollingerLower.push({ date: sortedData[i].date, value: lower });
+      }
+    }
+  }
+
+  // RSI 계산
+  if (options.rsi) {
+    const period = options.rsi.period || 14;
+
+    if (sortedData.length > period) {
+      result.rsi = [];
+
+      // 가격 변화 계산
+      const changes = [];
+      for (let i = 1; i < sortedData.length; i++) {
+        changes.push(sortedData[i].close - sortedData[i - 1].close);
+      }
+
+      // 첫 번째 평균 이득/손실 계산
+      let avgGain = 0;
+      let avgLoss = 0;
+
+      for (let i = 0; i < period; i++) {
+        if (changes[i] > 0) {
+          avgGain += changes[i];
+        } else {
+          avgLoss += Math.abs(changes[i]);
+        }
+      }
+
+      avgGain /= period;
+      avgLoss /= period;
+
+      // 첫 번째 RSI 계산
+      let rs = avgGain / (avgLoss === 0 ? 0.001 : avgLoss); // 0으로 나누기 방지
+      let rsiValue = 100 - 100 / (1 + rs);
+
+      result.rsi.push({
+        date: sortedData[period].date,
+        value: rsiValue,
+      });
+
+      // 나머지 기간 RSI 계산 (Wilder의 스무딩 방식)
+      for (let i = period; i < changes.length; i++) {
+        const change = changes[i];
+        const gain = change > 0 ? change : 0;
+        const loss = change < 0 ? Math.abs(change) : 0;
+
+        avgGain = (avgGain * (period - 1) + gain) / period;
+        avgLoss = (avgLoss * (period - 1) + loss) / period;
+
+        rs = avgGain / (avgLoss === 0 ? 0.001 : avgLoss);
+        rsiValue = 100 - 100 / (1 + rs);
+
+        result.rsi.push({
+          date: sortedData[i + 1].date,
+          value: rsiValue,
+        });
+      }
+    }
+  }
+
+  return result;
+};
+
+const AdvancedAnalysisPanel = ({ data }) => {
+  const [indicators, setIndicators] = useState({
+    showMA20: true,
+    showMA50: true,
+    showMA200: false,
+    showBollinger: false,
+    showRSI: false,
+  });
+
+  // 기술적 지표 계산
+  const analysisData = calculateIndicators(data?.daily_data, {
+    ma: { periods: [20, 50, 200] },
+    bollinger: { period: 20, stdDevMultiplier: 2 },
+    rsi: { period: 14 },
+  });
+
+  if (!analysisData) {
+    return (
+      <Card className="shadow-sm mb-4">
+        <Card.Header className="bg-secondary text-white">
+          <h5 className="mb-0">고급 기술 분석</h5>
+        </Card.Header>
+        <Card.Body className="text-center p-5">
+          <p>분석을 위한 충분한 데이터가 없습니다.</p>
+        </Card.Body>
+      </Card>
+    );
+  }
+
+  // 가격 차트 데이터 준비
+  const plotData = [
+    // 기본 가격 차트
+    {
+      x: analysisData.dates,
+      y: analysisData.prices,
+      type: "scatter",
+      name: "가격",
+      line: { color: "rgb(41, 121, 255)" },
+    },
+  ];
+
+  // 이동평균선 추가
+  if (indicators.showMA20 && analysisData.ma20) {
+    plotData.push({
+      x: analysisData.ma20.map((item) => item.date),
+      y: analysisData.ma20.map((item) => item.value),
+      type: "scatter",
+      name: "20일 이동평균",
+      line: { color: "orange", width: 2 },
+    });
+  }
+
+  if (indicators.showMA50 && analysisData.ma50) {
+    plotData.push({
+      x: analysisData.ma50.map((item) => item.date),
+      y: analysisData.ma50.map((item) => item.value),
+      type: "scatter",
+      name: "50일 이동평균",
+      line: { color: "red", width: 2 },
+    });
+  }
+
+  if (indicators.showMA200 && analysisData.ma200) {
+    plotData.push({
+      x: analysisData.ma200.map((item) => item.date),
+      y: analysisData.ma200.map((item) => item.value),
+      type: "scatter",
+      name: "200일 이동평균",
+      line: { color: "purple", width: 2 },
+    });
+  }
+
+  // 볼린저 밴드 추가
+  if (indicators.showBollinger && analysisData.bollingerMiddle) {
+    plotData.push(
+      {
+        x: analysisData.bollingerMiddle.map((item) => item.date),
+        y: analysisData.bollingerMiddle.map((item) => item.value),
+        type: "scatter",
+        name: "볼린저 중간선",
+        line: { color: "green", width: 1, dash: "dash" },
+      },
+      {
+        x: analysisData.bollingerUpper.map((item) => item.date),
+        y: analysisData.bollingerUpper.map((item) => item.value),
+        type: "scatter",
+        name: "볼린저 상단",
+        line: { color: "green", width: 1 },
+      },
+      {
+        x: analysisData.bollingerLower.map((item) => item.date),
+        y: analysisData.bollingerLower.map((item) => item.value),
+        type: "scatter",
+        name: "볼린저 하단",
+        line: { color: "green", width: 1 },
+      }
+    );
+  }
+
+  // RSI 차트 준비
+  const rsiPlotData =
+    indicators.showRSI && analysisData.rsi
+      ? [
+          {
+            x: analysisData.rsi.map((item) => item.date),
+            y: analysisData.rsi.map((item) => item.value),
+            type: "scatter",
+            name: "RSI (14)",
+            line: { color: "blue" },
+          },
+        ]
+      : [];
+
+  const handleIndicatorChange = (e) => {
+    const { name, checked } = e.target;
+    setIndicators((prev) => ({
+      ...prev,
+      [name]: checked,
+    }));
+  };
+
+  return (
+    <Card className="shadow-sm mb-4">
+      <Card.Header className="bg-secondary text-white">
+        <h5 className="mb-0">고급 기술 분석</h5>
+      </Card.Header>
+      <Card.Body>
+        <Row className="mb-3">
+          <Col>
+            <div className="d-flex flex-wrap gap-3">
+              <Form.Check
+                type="switch"
+                id="ma20-switch"
+                name="showMA20"
+                label="20일 이동평균"
+                checked={indicators.showMA20}
+                onChange={handleIndicatorChange}
+              />
+              <Form.Check
+                type="switch"
+                id="ma50-switch"
+                name="showMA50"
+                label="50일 이동평균"
+                checked={indicators.showMA50}
+                onChange={handleIndicatorChange}
+              />
+              <Form.Check
+                type="switch"
+                id="ma200-switch"
+                name="showMA200"
+                label="200일 이동평균"
+                checked={indicators.showMA200}
+                onChange={handleIndicatorChange}
+              />
+              <Form.Check
+                type="switch"
+                id="bollinger-switch"
+                name="showBollinger"
+                label="볼린저 밴드"
+                checked={indicators.showBollinger}
+                onChange={handleIndicatorChange}
+              />
+              <Form.Check
+                type="switch"
+                id="rsi-switch"
+                name="showRSI"
+                label="RSI (14)"
+                checked={indicators.showRSI}
+                onChange={handleIndicatorChange}
+              />
+            </div>
+          </Col>
+        </Row>
+
+        {/* 가격 차트 (이동평균선, 볼린저 밴드 포함) */}
+        <Plot
+          data={plotData}
+          layout={{
+            title: `${data.name || data.symbol} (${data.symbol}) 기술적 분석`,
+            xaxis: { title: "날짜" },
+            yaxis: { title: "가격" },
+            height: 500,
+            margin: { l: 50, r: 50, b: 50, t: 50 },
+            template: "plotly_white",
+            legend: {
+              orientation: "h",
+              yanchor: "bottom",
+              y: 1.02,
+              xanchor: "right",
+              x: 1,
+            },
+          }}
+          config={{
+            displayModeBar: true,
+            responsive: true,
+          }}
+          style={{ width: "100%", height: "100%" }}
+        />
+
+        {/* RSI 차트 (선택적으로 표시) */}
+        {indicators.showRSI && analysisData.rsi && (
+          <div className="mt-4">
+            <Plot
+              data={rsiPlotData}
+              layout={{
+                title: `RSI (14) - ${data.name || data.symbol}`,
+                xaxis: { title: "날짜" },
+                yaxis: {
+                  title: "RSI",
+                  range: [0, 100],
+                  tickvals: [30, 50, 70],
+                  ticktext: ["30 (과매도)", "50 (중립)", "70 (과매수)"],
+                },
+                shapes: [
+                  // 70선 (과매수)
+                  {
+                    type: "line",
+                    x0: analysisData.rsi[0].date,
+                    y0: 70,
+                    x1: analysisData.rsi[analysisData.rsi.length - 1].date,
+                    y1: 70,
+                    line: {
+                      color: "red",
+                      width: 1,
+                      dash: "dash",
+                    },
+                  },
+                  // 30선 (과매도)
+                  {
+                    type: "line",
+                    x0: analysisData.rsi[0].date,
+                    y0: 30,
+                    x1: analysisData.rsi[analysisData.rsi.length - 1].date,
+                    y1: 30,
+                    line: {
+                      color: "green",
+                      width: 1,
+                      dash: "dash",
+                    },
+                  },
+                ],
+                height: 250,
+                margin: { l: 50, r: 50, b: 50, t: 50 },
+                template: "plotly_white",
+              }}
+              config={{
+                displayModeBar: true,
+                responsive: true,
+              }}
+              style={{ width: "100%" }}
+            />
+          </div>
+        )}
+      </Card.Body>
+    </Card>
+  );
+};
+
+export default AdvancedAnalysisPanel;
+
+
+File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\components\BacktestForm.jsx
+
+import { useState, useRef, useEffect } from "react";
+import { Spinner } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { naturalBacktest } from "../services/api";
+
+const examplePrompts = ["삼성전자", "금", "비트코인", "QQQ"];
+
+const fullPrompts = {
+  삼성전자: "삼성전자를 3개월 전에 100만원어치 샀다면 지금 얼마가 되었을까?",
+  금: "1년 전, 금에 1000만원 투자했다면 수익이 얼마나 났을까요?",
+  비트코인: "비트코인을 3년전에 100만원어치 사서 1년전에 팔았다면?",
+  QQQ: "QQQ ETF 1년 전 200만원 투자 결과",
+};
+
+const BacktestForm = ({ setBacktestResult }) => {
+  const [prompt, setPrompt] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [chatHistory, setChatHistory] = useState([
+    {
+      role: "system",
+      content:
+        "안녕하세요! 과거 투자의 현재 가치를 확인해 드립니다. 투자하고 싶은 자산과 시기를 알려주세요.",
+    },
+  ]);
+  const chatEndRef = useRef(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // 채팅이 업데이트될 때마다 스크롤을 아래로 이동
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chatHistory]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!prompt.trim()) {
+      setError("투자 시나리오를 입력해주세요.");
+      return;
+    }
+
+    // 사용자 메시지 추가
+    setChatHistory((prev) => [...prev, { role: "user", content: prompt }]);
+
+    // 로딩 메시지 추가
+    setChatHistory((prev) => [
+      ...prev,
+      { role: "system", content: "분석 중...", loading: true },
+    ]);
+
+    setLoading(true);
+    setError("");
+    setPrompt("");
+
+    try {
+      const result = await naturalBacktest(prompt);
+
+      // 로딩 메시지 제거
+      setChatHistory((prev) => prev.filter((msg) => !msg.loading));
+
+      if (result.status === "error") {
+        // API가 응답했지만 에러를 반환한 경우
+        const errorMsg = "요청 분석 중 오류가 발생했습니다";
+        setError(errorMsg);
+        setChatHistory((prev) => [
+          ...prev,
+          { role: "system", content: `⚠️ ${errorMsg}`, error: true },
+          {
+            role: "system",
+            content:
+              "정확한 시기와 상품명, 그리고 비용을 입력해주세요. (예: '삼성전자 3개월 전부터 오늘까지 100만원 투자결과')",
+            error: true,
+          },
+        ]);
+      } else {
+        // 시스템 응답 메시지 추가
+        setChatHistory((prev) => [
+          ...prev,
+          {
+            role: "system",
+            content: `${result.result.name || result.result.symbol} (${
+              result.result.symbol
+            })의 백테스팅 결과가 준비되었습니다!`,
+            result: result,
+          },
+        ]);
+        setBacktestResult(result);
+        navigate("/result");
+      }
+    } catch (err) {
+      // API 호출 자체가 실패한 경우 (서버 연결 실패 등)
+      const errorMsg = "요청 분석 중 오류가 발생했습니다";
+      setError(errorMsg);
+      setChatHistory((prev) => prev.filter((msg) => !msg.loading));
+      setChatHistory((prev) => [
+        ...prev,
+        { role: "system", content: `⚠️ ${errorMsg}`, error: true },
+        {
+          role: "system",
+          content:
+            "정확한 시기와 상품명, 그리고 비용을 입력해주세요. (예: '삼성전자 3개월 전부터 오늘까지 100만원 투자결과')",
+          error: true,
+        },
+      ]);
+      console.error("백테스팅 에러:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleExampleClick = (example) => {
+    setPrompt(fullPrompts[example] || example);
+  };
+
+  return (
+    <div className="chat-container">
+      {/* 채팅 내역 표시 영역 */}
+      <div className="chat-history">
+        {chatHistory.map((message, index) => (
+          <div
+            key={index}
+            className={`${
+              message.role === "user" ? "user-message" : "system-message"
+            } ${message.error ? "error-message" : ""}`}
+          >
+            {message.loading ? (
+              <div className="loading-message">
+                <Spinner
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                {message.content}
+              </div>
+            ) : (
+              message.content
+            )}
+          </div>
+        ))}
+        <div ref={chatEndRef} />
+      </div>
+
+      {/* 채팅 입력 영역 */}
+      <form onSubmit={handleSubmit}>
+        <div className="chat-input-container">
+          <input
+            type="text"
+            className="chat-input"
+            placeholder="투자 시나리오를 입력하세요"
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            disabled={loading}
+            required
+          />
+          <button type="submit" className="send-button" disabled={loading}>
+            {loading ? <Spinner size="sm" /> : "→"}
+          </button>
+        </div>
+
+        <div className="example-prompts">
+          {examplePrompts.map((example, index) => (
+            <button
+              key={index}
+              type="button"
+              className="prompt-button"
+              onClick={() => handleExampleClick(example)}
+              disabled={loading}
+            >
+              {example}
+            </button>
+          ))}
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default BacktestForm;
+
+
+File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\components\Footer.jsx
+
+// src/components/Footer.jsx
+import React from "react";
+
+const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer className="minimal-footer">
+      <p>
+        <span className="footer-service">
+          AI를 활용한 간편한 백테스팅 서비스
+        </span>
+        <span className="footer-divider"> | </span>
+        <span className="footer-disclaimer">환율 변동은 적용되지 않습니다</span>
+      </p>
+    </footer>
+  );
+};
+
+export default Footer;
+
+
+File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\components\charts\DrawdownChart.jsx
+
+import React, { useMemo, useState, useEffect } from "react"; // Import React
+import Plot from "react-plotly.js";
+
+// --- Utility Hook for Window Size ---
+function useWindowSize() {
+  const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
+  useEffect(() => {
+    const handleResize = () => {
+      setSize([window.innerWidth, window.innerHeight]);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return size;
+}
+// --- End Utility Hook ---
+
+// --- Drawdown Calculation (Stable Version) ---
+const calculateDrawdowns = (dailyData) => {
+  if (!dailyData || dailyData.length < 2) {
+    return null;
+  }
+  const sortedData = [...dailyData].sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
+  let peak = -Infinity;
+  let maxDrawdown = 0;
+  const drawdowns = sortedData.map((day) => {
+    peak = Math.max(peak, day.close);
+    const drawdown = peak > 0 ? ((peak - day.close) / peak) * 100 : 0;
+    maxDrawdown = Math.max(maxDrawdown, drawdown);
+    return { date: day.date, drawdown: drawdown };
+  });
+  // Recalculate maxDrawdown accurately after finding the initial peak
+  if (sortedData.length > 0) {
+    peak = sortedData[0].close;
+    maxDrawdown = 0;
+    sortedData.forEach((day) => {
+      peak = Math.max(peak, day.close);
+      const drawdown = peak > 0 ? ((peak - day.close) / peak) * 100 : 0;
+      maxDrawdown = Math.max(maxDrawdown, drawdown);
+    });
+  }
+  return { drawdowns, maxDrawdown };
+};
+
+// --- Style Config ---
+const styleConfig = {
+  colors: {
+    primary: "#80BFFF",
+    secondary: "#79F2C0",
+    buy: "#A3BE8C",
+    sell: "#F28B82",
+    /* ... */ background: "rgba(0,0,0,0)",
+    plotBackground: "rgba(0,0,0,0)",
+    grid: "#3C414C",
+    text: "#EAECEF",
+    textSecondary: "#BDC1C6",
+    axisLine: "#5F6368",
+    hoverBg: "#202124",
+    hoverBorder: "#5F6368",
+  },
+  font: {
+    family: "'Inter', 'Noto Sans KR', sans-serif",
+    size: 15,
+    color: "#EAECEF",
+  },
+  lineStyle: { width: 1.5 },
+};
+
+// --- Hex to RGBA Helper ---
+const hexToRgba = (hex, alpha) => {
+  hex = hex.replace("#", "");
+  const bigint = parseInt(hex, 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
+// --- Chart Component ---
+const DrawdownChart = ({ data }) => {
+  const { colors, font: commonFont, lineStyle } = styleConfig;
+  const [width] = useWindowSize(); // Get window width
+  const isMobile = width < 600; // Define mobile breakpoint
+
+  const drawdownAnalysis = useMemo(() => {
+    if (!data?.daily_data || data.daily_data.length < 2) {
+      return null;
+    }
+    return calculateDrawdowns(data.daily_data);
+  }, [data]);
+
+  // --- Check for sufficient data ---
+  if (!drawdownAnalysis) {
+    return (
+      <div
+        style={{
+          width: "100%",
+          height: "400px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: colors.textSecondary /*...*/,
+        }}
+      >
+        낙폭 차트 데이터 부족
+      </div>
+    );
+  }
+
+  const { drawdowns, maxDrawdown } = drawdownAnalysis;
+  const drawdownDates = drawdowns.map((item) => item.date);
+  const drawdownValues = drawdowns.map((item) => item.drawdown);
+  const drawdownHoverTemplate = `<b>%{x|%Y-%m-%d}</b><br>낙폭: %{y:.2f}%<extra></extra>`;
+  // Find MDD annotation position
+  const mddIndex = drawdownValues.findIndex((dd) => dd >= maxDrawdown);
+  const annotationX =
+    mddIndex !== -1
+      ? drawdownDates[mddIndex]
+      : drawdownDates[Math.floor(drawdownDates.length / 2)];
+
+  // --- Plotly Data ---
+  const plotData = [
+    {
+      x: drawdownDates,
+      y: drawdownValues,
+      type: "scatter",
+      mode: "lines",
+      fill: "tozeroy",
+      fillcolor: hexToRgba(colors.sell, 0.2),
+      line: { color: colors.sell, width: lineStyle.width },
+      name: "Drawdown (%)",
+      hovertemplate: drawdownHoverTemplate,
+    },
+  ];
+
+  // --- Plotly Layout Modifications ---
+  const layout = {
+    autosize: true,
+    // <<< Conditional Title with Specific Line Break >>>
+    title: {
+      text: `${data.name || data.symbol} (${data.symbol})<br>${
+        isMobile ? "낙폭 분석" : "낙폭 분석"
+      }`, // Specific break on mobile
+      font: {
+        ...commonFont,
+        size: commonFont.size + (isMobile ? 1 : 4),
+        color: colors.text,
+      },
+      y: isMobile ? 0.94 : 0.97, // Adjust title position slightly on mobile
+      x: 0.5,
+      xanchor: "center",
+    },
+    font: { ...commonFont, size: commonFont.size - (isMobile ? 1 : 0) },
+    paper_bgcolor: colors.background,
+    plot_bgcolor: colors.plotBackground,
+    xaxis: {
+      title: {
+        text: "날짜",
+        font: { size: commonFont.size - (isMobile ? 2 : 1) },
+      },
+      gridcolor: colors.grid,
+      linecolor: colors.axisLine,
+      tickfont: {
+        size: commonFont.size - (isMobile ? 3 : 2),
+        color: colors.textSecondary,
+      },
+      automargin: true,
+      showgrid: true,
+      tickformatstops: [
+        /*...*/
+      ],
+    },
+    yaxis: {
+      title: {
+        text: "낙폭 (%)",
+        font: { size: commonFont.size - (isMobile ? 2 : 1) },
+      },
+      gridcolor: colors.grid,
+      linecolor: colors.axisLine,
+      tickfont: {
+        size: commonFont.size - (isMobile ? 3 : 2),
+        color: colors.textSecondary,
+      },
+      tickformat: ".2f",
+      ticksuffix: "%",
+      autorange: "reversed", // Keep reversed axis
+      zeroline: true,
+      zerolinecolor: colors.grid,
+      zerolinewidth: 1,
+      automargin: true,
+    },
+    shapes: [
+      // MDD Line
+      {
+        type: "line",
+        x0: drawdownDates[0],
+        y0: maxDrawdown,
+        x1: drawdownDates[drawdownDates.length - 1],
+        y1: maxDrawdown,
+        line: { color: colors.sell, width: 1.5, dash: "dash" },
+      },
+    ],
+    annotations: [
+      // MDD Text
+      {
+        x: annotationX,
+        y: maxDrawdown,
+        text: `MDD: <b>${maxDrawdown.toFixed(2)}%</b>`,
+        showarrow: true,
+        arrowhead: 2,
+        ax: 0,
+        ay: -45,
+        font: {
+          size: commonFont.size - (isMobile ? 3 : 2),
+          color: colors.textSecondary,
+        },
+        bgcolor: colors.hoverBg,
+        bordercolor: colors.axisLine,
+        borderpad: 4,
+      },
+    ],
+    // <<< Adjusted Margins for Mobile >>>
+    margin: {
+      l: isMobile ? 50 : 65,
+      r: isMobile ? 30 : 50,
+      b: isMobile ? 90 : 80,
+      t: isMobile ? 90 : 60,
+      pad: 4,
+    }, // Adjusted top/bottom for title
+    showlegend: false,
+    hovermode: "x unified",
+    hoverlabel: {
+      bgcolor: colors.hoverBg,
+      font: { size: commonFont.size - 1, color: commonFont.color },
+      bordercolor: colors.hoverBorder,
+      align: "left",
+    },
+  };
+
+  return (
+    <Plot
+      data={plotData}
+      layout={layout}
+      config={{
+        displayModeBar: "hover",
+        responsive: true,
+        displaylogo: false,
+        modeBarButtonsToRemove: ["select2d", "lasso2d"],
+        scrollZoom: true,
+      }}
+      key={width} // Force re-render on width change
+      style={{ width: "100%", height: "100%", minHeight: "490px" }}
+      useResizeHandler={true}
+      className="drawdown-chart"
+    />
+  );
+};
+
+export default DrawdownChart;
+
+
+File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\components\charts\PriceChart.jsx
+
+import React, { useMemo, useState, useEffect } from "react";
+import Plot from "react-plotly.js";
+
+// --- Utility Hook for Window Size ---
+function useWindowSize() {
+  const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
+  useEffect(() => {
+    const handleResize = () => {
+      setSize([window.innerWidth, window.innerHeight]);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return size;
+}
+// --- End Utility Hook ---
+
+// Investment performance calculation function (stable version)
+const calculateInvestmentPerformance = (dailyData, investmentAmount) => {
+  /* ...as before... */
+  if (!dailyData || dailyData.length < 2) return null;
+  const sortedData = [...dailyData].sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
+  const initialPrice = sortedData[0].close;
+  if (initialPrice <= 0) return null;
+  const finalPrice = sortedData[sortedData.length - 1].close;
+  const sharesBought = investmentAmount / initialPrice;
+  const finalValue = sharesBought * finalPrice;
+  const profit = finalValue - investmentAmount;
+  const profitPercentage =
+    investmentAmount !== 0 ? (profit / investmentAmount) * 100 : 0;
+  const dailyReturns = [];
+  for (let i = 1; i < sortedData.length; i++) {
+    const prevClose = sortedData[i - 1].close;
+    const currClose = sortedData[i].close;
+    dailyReturns.push({
+      date: sortedData[i].date,
+      return: prevClose !== 0 ? (currClose / prevClose - 1) * 100 : 0,
+    });
+  }
+  const cumulativeReturns = [{ date: sortedData[0].date, return: 0 }];
+  let cumReturn = 0;
+  for (let i = 0; i < dailyReturns.length; i++) {
+    const dailyReturnDecimal = dailyReturns[i].return / 100;
+    cumReturn = (1 + cumReturn) * (1 + dailyReturnDecimal) - 1;
+    cumulativeReturns.push({
+      date: dailyReturns[i].date,
+      return: cumReturn * 100,
+    });
+  }
+  let peak = -Infinity;
+  let maxDrawdown = 0;
+  const drawdowns = sortedData.map((day) => {
+    const currentPrice = day.close;
+    peak = Math.max(peak, currentPrice);
+    const drawdown = peak > 0 ? ((peak - currentPrice) / peak) * 100 : 0;
+    maxDrawdown = Math.max(maxDrawdown, drawdown);
+    return { date: day.date, drawdown: drawdown };
+  });
+  const returnsDecimal = dailyReturns.map((day) => day.return / 100);
+  let annualizedVolatility = 0;
+  let sharpeRatio = 0;
+  let annualizedReturn = 0;
+  if (returnsDecimal.length >= 2) {
+    const avgReturn =
+      returnsDecimal.reduce((sum, ret) => sum + ret, 0) / returnsDecimal.length;
+    const variance =
+      returnsDecimal.reduce(
+        (sum, ret) => sum + Math.pow(ret - avgReturn, 2),
+        0
+      ) /
+      (returnsDecimal.length - 1);
+    const stdDev = Math.sqrt(variance);
+    annualizedVolatility = stdDev * Math.sqrt(252) * 100;
+    const firstDate = new Date(sortedData[0].date);
+    const lastDate = new Date(sortedData[sortedData.length - 1].date);
+    const days = Math.max(
+      1,
+      (lastDate.getTime() - firstDate.getTime()) / (1000 * 60 * 60 * 24)
+    );
+    const years = days / 365.25;
+    const totalReturnDecimal = cumReturn;
+    annualizedReturn =
+      years > 0 ? (Math.pow(1 + totalReturnDecimal, 1 / years) - 1) * 100 : 0;
+    sharpeRatio =
+      annualizedVolatility > 0 ? annualizedReturn / annualizedVolatility : 0;
+  }
+  return {
+    initialPrice,
+    finalPrice,
+    sharesBought,
+    finalValue,
+    profit,
+    profitPercentage,
+    maxDrawdown,
+    volatility: annualizedVolatility,
+    sharpeRatio,
+    annualizedReturn,
+    dailyReturns,
+    cumulativeReturns,
+    drawdowns,
+    tradeHistory: [
+      {
+        date: sortedData[0].date,
+        action: "매수",
+        price: initialPrice,
+        shares: sharesBought,
+        value: investmentAmount,
+      },
+      {
+        date: sortedData[sortedData.length - 1].date,
+        action: "평가",
+        price: finalPrice,
+        shares: sharesBought,
+        value: finalValue,
+      },
+    ],
+  };
+};
+
+// Style Config
+const styleConfig = {
+  /* ...as before... */
+  colors: {
+    primary: "#80BFFF",
+    secondary: "#79F2C0",
+    buy: "#A3BE8C",
+    sell: "#F28B82",
+    background: "rgba(0,0,0,0)",
+    plotBackground: "rgba(0,0,0,0)",
+    grid: "#3C414C",
+    text: "#EAECEF",
+    textSecondary: "#BDC1C6",
+    axisLine: "#5F6368",
+    hoverBg: "#202124",
+    hoverBorder: "#5F6368",
+  },
+  font: {
+    family: "'Inter', 'Noto Sans KR', sans-serif",
+    size: 15,
+    color: "#EAECEF",
+  },
+  lineStyle: { shape: "spline", width: 1.5 },
+  markerSize: 13,
+};
+
+// Chart Component
+const PriceChart = ({ data, currency }) => {
+  const { colors, font: commonFont, lineStyle, markerSize } = styleConfig;
+  const [width] = useWindowSize(); // Get window width
+  const isMobile = width < 600; // Define mobile breakpoint
+
+  const analysis = useMemo(() => {
+    /* ...as before... */
+    if (
+      !data?.daily_data ||
+      data.daily_data.length < 2 ||
+      !data.initial_investment
+    )
+      return null;
+    const initialInvestment = Number(data.initial_investment);
+    if (isNaN(initialInvestment) || initialInvestment <= 0) return null;
+    return calculateInvestmentPerformance(data.daily_data, initialInvestment);
+  }, [data]);
+
+  // Calculate price units/formats based on currency
+  const { priceUnit, priceSuffix, yAxisTickFormat, yAxisTickPrefix } =
+    useMemo(() => {
+      if (!data?.daily_data || data.daily_data.length === 0) {
+        const isKRW = currency === "KRW";
+        return {
+          priceUnit: 1,
+          priceSuffix: isKRW ? "원" : "",
+          yAxisTickFormat: isKRW ? ",.0f" : ",.2f",
+          yAxisTickPrefix: isKRW ? "" : "$",
+        };
+      }
+      const maxPrice = Math.max(...data.daily_data.map((d) => d.close));
+      if (currency === "KRW") {
+        const useManwon = maxPrice > 10000;
+        return {
+          priceUnit: useManwon ? 10000 : 1,
+          priceSuffix: useManwon ? "만원" : "원",
+          yAxisTickFormat: useManwon ? ",.1f" : ",.0f",
+          yAxisTickPrefix: "",
+        };
+      } else {
+        /* USD */ return {
+          priceUnit: 1,
+          priceSuffix: "",
+          yAxisTickFormat: ",.2f",
+          yAxisTickPrefix: "$",
+        };
+      }
+    }, [data?.daily_data, currency]);
+
+  // Calculate original and axis prices
+  const { originalPrices, pricesForAxis } = useMemo(() => {
+    /* ...as before... */
+    if (!analysis || !analysis.cumulativeReturns)
+      return { originalPrices: null, pricesForAxis: null };
+    const priceMap = (data.daily_data || []).reduce((map, day) => {
+      map[day.date] = day.close;
+      return map;
+    }, {});
+    const dates = analysis.cumulativeReturns.map((item) => item.date);
+    const originalPricesMapped = dates.map((date) => priceMap[date] ?? null);
+    const pricesForAxisMapped = originalPricesMapped.map((p) =>
+      p !== null ? p / priceUnit : null
+    );
+    return {
+      originalPrices: originalPricesMapped,
+      pricesForAxis: pricesForAxisMapped,
+    };
+  }, [analysis, data?.daily_data, priceUnit]);
+
+  // Check for sufficient data
+  if (
+    !analysis ||
+    !pricesForAxis ||
+    !analysis.tradeHistory ||
+    analysis.tradeHistory.length < 2
+  ) {
+    return (
+      <div
+        style={{
+          width: "100%",
+          height: "400px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: colors.textSecondary /*...*/,
+        }}
+      >
+        차트 데이터 부족
+      </div>
+    );
+  }
+
+  const dates = analysis.cumulativeReturns.map((item) => item.date);
+  const buyPoint = analysis.tradeHistory[0];
+  const evalPoint = analysis.tradeHistory[1];
+  const buyPriceForAxis = buyPoint.price / priceUnit;
+  const evalPriceForAxis = evalPoint.price / priceUnit;
+
+  // --- Simplified hover templates ---
+  const priceHoverTemplate = `<b>%{x|%Y-%m-%d}</b><br>가격: %{y:${yAxisTickFormat}}${
+    priceSuffix ? priceSuffix : ""
+  }<extra></extra>`;
+  const returnHoverTemplate = `<b>%{x|%Y-%m-%d}</b><br>누적수익률: %{y:.2f}%<extra></extra>`;
+  const formatOriginalPriceForHover = (price) => {
+    /* ...as before... */
+    if (price === null || price === undefined) return "N/A";
+    const locale = currency === "KRW" ? "ko-KR" : "en-US";
+    const options =
+      currency === "KRW"
+        ? { minimumFractionDigits: 0, maximumFractionDigits: 0 }
+        : { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+    const prefix = currency === "KRW" ? "" : "$";
+    const suffix = currency === "KRW" ? "원" : "";
+    return `${prefix}${Number(price).toLocaleString(locale, options)}${suffix}`;
+  };
+  const buyHoverTemplate = `<b>매수</b><br>%{x|%Y-%m-%d}<br>${formatOriginalPriceForHover(
+    buyPoint.price
+  )}<extra></extra>`;
+  const evalHoverTemplate = `<b>평가</b><br>%{x|%Y-%m-%d}<br>${formatOriginalPriceForHover(
+    evalPoint.price
+  )}<extra></extra>`;
+
+  // --- Plotly Data ---
+  const plotData = [
+    /* ...as before... */
+    {
+      x: dates,
+      y: pricesForAxis,
+      type: "scatter",
+      mode: "lines",
+      name: "가격",
+      line: { color: colors.primary, ...lineStyle },
+      yaxis: "y",
+      hovertemplate: priceHoverTemplate,
+      connectgaps: true,
+    },
+    {
+      x: dates,
+      y: analysis.cumulativeReturns.map((item) => item.return),
+      type: "scatter",
+      mode: "lines",
+      name: "누적 수익률",
+      line: { color: colors.secondary, ...lineStyle },
+      yaxis: "y2",
+      hovertemplate: returnHoverTemplate,
+      connectgaps: true,
+    },
+    {
+      x: [buyPoint.date],
+      y: [buyPriceForAxis],
+      type: "scatter",
+      mode: "markers",
+      name: "매수",
+      marker: {
+        symbol: "triangle-up",
+        size: markerSize,
+        color: colors.buy,
+        line: { color: colors.hoverBg, width: 1.5 },
+      },
+      yaxis: "y",
+      hovertemplate: buyHoverTemplate,
+    },
+    {
+      x: [evalPoint.date],
+      y: [evalPriceForAxis],
+      type: "scatter",
+      mode: "markers",
+      name: "평가",
+      marker: {
+        symbol: "circle",
+        size: markerSize,
+        color: colors.sell,
+        line: { color: colors.hoverBg, width: 1.5 },
+      },
+      yaxis: "y",
+      hovertemplate: evalHoverTemplate,
+    },
+  ];
+
+  // --- Plotly Layout Modifications ---
+  const layout = {
+    autosize: true,
+    // <<< Conditional Title with Line Break >>>
+    title: {
+      text: `${data.name || data.symbol} (${data.symbol}) ${
+        isMobile ? "<br>" : ""
+      }가격 및 누적 수익률`, // Add <br> on mobile
+      font: {
+        ...commonFont,
+        size: commonFont.size + (isMobile ? 1 : 4),
+        color: colors.text,
+      }, // Slightly smaller title on mobile
+      y: 0.95,
+      x: 0.5,
+      xanchor: "center",
+    },
+    font: { ...commonFont, size: commonFont.size - (isMobile ? 1 : 0) }, // Slightly smaller base font on mobile
+    paper_bgcolor: colors.background,
+    plot_bgcolor: colors.plotBackground,
+    xaxis: {
+      title: {
+        text: "날짜",
+        font: { size: commonFont.size - (isMobile ? 2 : 1) },
+      }, // Smaller axis title on mobile
+      gridcolor: colors.grid,
+      linecolor: colors.axisLine,
+      tickfont: {
+        size: commonFont.size - (isMobile ? 3 : 2),
+        color: colors.textSecondary,
+      }, // Smaller tick font on mobile
+      automargin: true,
+      showgrid: true,
+      tickformatstops: [
+        /*...*/
+      ],
+    },
+    yaxis: {
+      // Price Axis
+      // <<< Fix Title: Ensure suffix is added correctly >>>
+      title: {
+        text: `가격 ${priceSuffix ? `(${priceSuffix})` : ""}`,
+        font: {
+          size: commonFont.size - (isMobile ? 2 : 1),
+          color: colors.primary,
+        },
+      },
+      gridcolor: colors.grid,
+      linecolor: colors.axisLine,
+      tickfont: {
+        size: commonFont.size - (isMobile ? 3 : 2),
+        color: colors.textSecondary,
+      },
+      tickformat: yAxisTickFormat,
+      tickprefix: yAxisTickPrefix,
+      ticksuffix: priceSuffix && yAxisTickPrefix === "" ? priceSuffix : "",
+      automargin: true,
+      zeroline: false,
+    },
+    yaxis2: {
+      // Return Axis
+      title: {
+        text: "누적 수익률 (%)",
+        font: {
+          size: commonFont.size - (isMobile ? 2 : 1),
+          color: colors.secondary,
+        },
+      },
+      tickfont: {
+        size: commonFont.size - (isMobile ? 3 : 2),
+        color: colors.textSecondary,
+      },
+      overlaying: "y",
+      side: "right",
+      showgrid: false,
+      zeroline: true,
+      zerolinecolor: colors.grid,
+      zerolinewidth: 1,
+      ticksuffix: "%",
+      tickformat: ".2f",
+      automargin: true,
+    },
+    // <<< Legend Adjustment for Multi-Row >>>
+    legend: {
+      orientation: "h", // Horizontal layout first
+      yanchor: "top",
+      y: isMobile ? -0.35 : -0.25, // More space below on mobile
+      xanchor: "center",
+      x: 0.5,
+      font: {
+        size: commonFont.size - (isMobile ? 2 : 1),
+        color: colors.textSecondary,
+      }, // Slightly smaller legend font
+      bgcolor: "rgba(0,0,0,0)",
+      borderwidth: 0,
+      // Plotly might wrap automatically with 'h' if space is limited by margins/width
+    },
+    // <<< Adjusted Margins for Mobile >>>
+    margin: {
+      l: isMobile ? 45 : 65, // Less left margin on mobile
+      r: isMobile ? 45 : 65, // Less right margin on mobile
+      b: isMobile ? 120 : 110, // Slightly more bottom margin for potentially wrapped legend
+      t: 60,
+      pad: 4,
+    },
+    hovermode: "x unified",
+    hoverlabel: {
+      bgcolor: colors.hoverBg,
+      font: { size: commonFont.size - 1, color: commonFont.color },
+      bordercolor: colors.hoverBorder,
+      align: "left",
+    },
+    dragmode: "zoom",
+  };
+
+  return (
+    <Plot
+      data={plotData}
+      layout={layout}
+      config={{
+        displayModeBar: "hover",
+        responsive: true,
+        displaylogo: false,
+        modeBarButtonsToRemove: ["select2d", "lasso2d"],
+        scrollZoom: true,
+      }}
+      // <<< Use key to force re-render on width change for layout adjustments >>>
+      key={width}
+      style={{ width: "100%", height: "100%", minHeight: "400px" }}
+      useResizeHandler={true}
+      className="price-chart-container price-chart-dark"
+    />
+  );
+};
+
+export default PriceChart;
+
+
+File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\components\charts\ReturnDistributionChart.jsx
+
+import React, { useMemo, useState, useEffect } from "react"; // Import React
+import Plot from "react-plotly.js";
+
+// --- Utility Hook for Window Size ---
+function useWindowSize() {
+  const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
+  useEffect(() => {
+    const handleResize = () => {
+      setSize([window.innerWidth, window.innerHeight]);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return size;
+}
+// --- End Utility Hook ---
+
+// --- Return Distribution Calculation (Stable Version) ---
+const calculateReturnDistribution = (dailyData) => {
+  if (!dailyData || dailyData.length < 2) {
+    return null;
+  }
+  const sortedData = [...dailyData].sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
+  const dailyReturns = [];
+  for (let i = 1; i < sortedData.length; i++) {
+    const prevClose = sortedData[i - 1].close;
+    const currClose = sortedData[i].close;
+    const dailyReturn = prevClose !== 0 ? (currClose / prevClose - 1) * 100 : 0;
+    dailyReturns.push({ date: sortedData[i].date, return: dailyReturn });
+  }
+  if (dailyReturns.length === 0) return null;
+  const returns = dailyReturns.map((day) => day.return);
+  const meanReturn =
+    returns.reduce((sum, ret) => sum + ret, 0) / returns.length;
+  const histogramData = {};
+  const binSize = 0.25; // Adjust bin size if needed
+  returns.forEach((ret) => {
+    const bin = Math.round(ret / binSize) * binSize;
+    histogramData[bin] = (histogramData[bin] || 0) + 1;
+  });
+  const values = Object.values(histogramData);
+  const maxFrequency = values.length > 0 ? Math.max(...values) : 1;
+  return { dailyReturns, meanReturn, histogramData, maxFrequency };
+};
+
+// --- Style Config ---
+const styleConfig = {
+  colors: {
+    primary: "#80BFFF",
+    secondary: "#79F2C0",
+    /* ... other colors */ background: "rgba(0,0,0,0)",
+    plotBackground: "rgba(0,0,0,0)",
+    grid: "#3C414C",
+    text: "#EAECEF",
+    textSecondary: "#BDC1C6",
+    axisLine: "#5F6368",
+    hoverBg: "#202124",
+    hoverBorder: "#5F6368",
+  },
+  font: {
+    family: "'Inter', 'Noto Sans KR', sans-serif",
+    size: 15,
+    color: "#EAECEF",
+  },
+};
+
+// --- Chart Component ---
+const ReturnDistributionChart = ({ data }) => {
+  const { colors, font: commonFont } = styleConfig;
+  const [width] = useWindowSize(); // Get window width
+  const isMobile = width < 600; // Define mobile breakpoint
+
+  const returnAnalysis = useMemo(() => {
+    if (!data?.daily_data || data.daily_data.length < 2) {
+      return null;
+    }
+    return calculateReturnDistribution(data.daily_data);
+  }, [data]);
+
+  // --- Check for sufficient data ---
+  if (!returnAnalysis) {
+    return (
+      <div
+        style={{
+          width: "100%",
+          height: "400px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: colors.textSecondary /*...*/,
+        }}
+      >
+        수익률 분포 차트 데이터 부족
+      </div>
+    );
+  }
+
+  const { dailyReturns, meanReturn, maxFrequency } = returnAnalysis;
+  const histogramHoverTemplate = `수익률 범위: %{x:.2f}%<br>빈도: %{y}일<extra></extra>`; // Format range and add unit
+
+  // --- Plotly Data ---
+  const plotData = [
+    {
+      x: dailyReturns.map((item) => item.return),
+      type: "histogram",
+      name: "수익률 분포",
+      marker: {
+        color: colors.secondary,
+        opacity: 0.7,
+        line: { color: colors.hoverBg, width: 0.5 },
+      },
+      nbinsx: 40, // Adjust bin count as needed
+      hovertemplate: histogramHoverTemplate,
+    },
+  ];
+
+  // --- Plotly Layout Modifications ---
+  const layout = {
+    autosize: true,
+    // <<< Conditional Title with Specific Line Break >>>
+    title: {
+      text: `${data.name || data.symbol} (${data.symbol})<br>일일 ${
+        isMobile ? "수익률<br>분포" : "수익률 분포"
+      }`, // Specific break on mobile
+      font: {
+        ...commonFont,
+        size: commonFont.size + (isMobile ? 1 : 4),
+        color: colors.text,
+      },
+      y: isMobile ? 0.95 : 0.97, // Adjust title position slightly on mobile
+      x: 0.5,
+      xanchor: "center",
+    },
+    font: { ...commonFont, size: commonFont.size - (isMobile ? 1 : 0) },
+    paper_bgcolor: colors.background,
+    plot_bgcolor: colors.plotBackground,
+    xaxis: {
+      title: {
+        text: "일일 수익률 (%)",
+        font: { size: commonFont.size - (isMobile ? 2 : 1) },
+      },
+      gridcolor: colors.grid,
+      linecolor: colors.axisLine,
+      tickfont: {
+        size: commonFont.size - (isMobile ? 3 : 2),
+        color: colors.textSecondary,
+      },
+      automargin: true,
+      showgrid: true,
+      ticksuffix: "%",
+    },
+    yaxis: {
+      title: {
+        text: "빈도 (일)",
+        font: { size: commonFont.size - (isMobile ? 2 : 1) },
+      },
+      gridcolor: colors.grid,
+      linecolor: colors.axisLine,
+      tickfont: {
+        size: commonFont.size - (isMobile ? 3 : 2),
+        color: colors.textSecondary,
+      },
+      automargin: true,
+      showgrid: true,
+    },
+    shapes: [
+      // Mean return line
+      {
+        type: "line",
+        x0: meanReturn,
+        y0: 0,
+        x1: meanReturn,
+        y1: maxFrequency * 0.8,
+        line: { color: colors.primary, width: 2, dash: "dash" },
+      },
+    ],
+    annotations: [
+      // Mean return text
+      {
+        x: meanReturn,
+        y: maxFrequency * 0.85,
+        text: `평균: ${meanReturn.toFixed(2)}%`,
+        showarrow: true,
+        arrowhead: 1,
+        ax: 0,
+        ay: -40,
+        font: {
+          size: commonFont.size - (isMobile ? 3 : 2),
+          color: colors.textSecondary,
+        },
+        bgcolor: colors.hoverBg,
+        borderpad: 4,
+      },
+    ],
+    // <<< Adjusted Margins for Mobile >>>
+    margin: {
+      l: isMobile ? 45 : 65,
+      r: isMobile ? 30 : 50,
+      b: isMobile ? 90 : 80,
+      t: isMobile ? 80 : 60,
+      pad: 4,
+    }, // Adjusted top/bottom for title
+    showlegend: false,
+    bargap: 0.1,
+    hovermode: "closest",
+    hoverlabel: {
+      bgcolor: colors.hoverBg,
+      font: { size: commonFont.size - 1, color: commonFont.color },
+      bordercolor: colors.hoverBorder,
+      align: "left",
+    },
+  };
+
+  return (
+    <Plot
+      data={plotData}
+      layout={layout}
+      config={{
+        displayModeBar: "hover",
+        responsive: true,
+        displaylogo: false,
+        modeBarButtonsToRemove: ["select2d", "lasso2d"],
+        scrollZoom: true,
+      }}
+      key={width} // Force re-render on width change
+      style={{ width: "100%", height: "100%", minHeight: "490px" }}
+      useResizeHandler={true}
+      className="return-distribution-chart"
+    />
+  );
+};
+
+export default ReturnDistributionChart;
+
+
+File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\components\charts\TechnicalAnalysisChart.jsx
+
+import React, { useMemo, useState, useEffect } from "react";
+import Plot from "react-plotly.js";
+
+// --- Utility Hook for Window Size ---
+function useWindowSize() {
+  const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
+  useEffect(() => {
+    const handleResize = () => {
+      setSize([window.innerWidth, window.innerHeight]);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return size;
+}
+// --- End Utility Hook ---
+
+// Style Config
+const styleConfig = {
+  /* ...as before... */
+  colors: {
+    primary: "#80BFFF",
+    secondary: "#79F2C0",
+    buy: "#A3BE8C",
+    sell: "#F28B82",
+    ma1: "#F6E05E",
+    ma2: "#94E2D5",
+    background: "rgba(0,0,0,0)",
+    plotBackground: "rgba(0,0,0,0)",
+    grid: "#3C414C",
+    text: "#EAECEF",
+    textSecondary: "#BDC1C6",
+    axisLine: "#5F6368",
+    hoverBg: "#202124",
+    hoverBorder: "#5F6368",
+  },
+  font: {
+    family: "'Inter', 'Noto Sans KR', sans-serif",
+    size: 15,
+    color: "#EAECEF",
+  },
+  lineStyle: { shape: "spline", width: 1.5 },
+};
+
+// Chart Component
+const TechnicalAnalysisChart = ({ data, currency }) => {
+  const { colors, font: commonFont, lineStyle } = styleConfig;
+  const [showRSI, setShowRSI] = useState(false);
+  const [chartData, setChartData] = useState(null);
+  const [width] = useWindowSize(); // Get window width
+  const isMobile = width < 600; // Define mobile breakpoint
+
+  // Calculate price units/formats based on currency
+  const { priceUnit, priceSuffix, yAxisTickFormat, yAxisTickPrefix } =
+    useMemo(() => {
+      /* ...as in PriceChart... */
+      if (!data?.daily_data || data.daily_data.length === 0) {
+        const isKRW = currency === "KRW";
+        return {
+          priceUnit: 1,
+          priceSuffix: isKRW ? "원" : "",
+          yAxisTickFormat: isKRW ? ",.0f" : ",.2f",
+          yAxisTickPrefix: isKRW ? "" : "$",
+        };
+      }
+      const maxPrice = Math.max(...data.daily_data.map((d) => d.close));
+      if (currency === "KRW") {
+        const useManwon = maxPrice > 10000;
+        return {
+          priceUnit: useManwon ? 10000 : 1,
+          priceSuffix: useManwon ? "만원" : "원",
+          yAxisTickFormat: useManwon ? ",.1f" : ",.0f",
+          yAxisTickPrefix: "",
+        };
+      } else {
+        return {
+          priceUnit: 1,
+          priceSuffix: "",
+          yAxisTickFormat: ",.2f",
+          yAxisTickPrefix: "$",
+        };
+      }
+    }, [data?.daily_data, currency]);
+
+  // Data calculation logic
+  useEffect(() => {
+    /* ...as before... */
+    if (!data?.daily_data || data.daily_data.length < 10) {
+      setChartData(null);
+      return;
+    }
+    try {
+      const sortedData = [...data.daily_data].sort(
+        (a, b) => new Date(a.date) - new Date(b.date)
+      );
+      const dates = sortedData.map((day) => day.date);
+      const originalPrices = sortedData.map((day) => day.close);
+      const calculateMA = (period) => {
+        if (sortedData.length < period) return [];
+        const ma = [];
+        for (let i = period - 1; i < sortedData.length; i++) {
+          const window = sortedData.slice(i - period + 1, i + 1);
+          const avg = window.reduce((sum, day) => sum + day.close, 0) / period;
+          ma.push({ date: sortedData[i].date, value: avg });
+        }
+        return ma;
+      };
+      const originalMa20 = calculateMA(20);
+      const originalMa50 = calculateMA(50);
+      const calculateRSI = (period = 14) => {
+        if (sortedData.length < period + 1) return [];
+        const rsiResult = [];
+        const changes = [];
+        for (let i = 1; i < sortedData.length; i++) {
+          changes.push(sortedData[i].close - sortedData[i - 1].close);
+        }
+        let avgGain = 0;
+        let avgLoss = 0;
+        for (let i = 0; i < period; i++) {
+          if (changes[i] > 0) avgGain += changes[i];
+          else avgLoss += Math.abs(changes[i]);
+        }
+        avgGain /= period;
+        avgLoss = avgLoss / period || 0.00001;
+        for (let i = period; i < changes.length; i++) {
+          const gain = changes[i] > 0 ? changes[i] : 0;
+          const loss = changes[i] < 0 ? Math.abs(changes[i]) : 0;
+          avgGain = (avgGain * (period - 1) + gain) / period;
+          avgLoss = (avgLoss * (period - 1) + loss) / period || 0.00001;
+          const rs = avgGain / avgLoss;
+          const rsiValue = 100 - 100 / (1 + rs);
+          rsiResult.push({ date: sortedData[i + 1].date, value: rsiValue });
+        }
+        return rsiResult;
+      };
+      const rsi = calculateRSI(14);
+      setChartData({
+        dates,
+        originalPrices,
+        originalMa20: originalMa20.length > 0 ? originalMa20 : null,
+        originalMa50: originalMa50.length > 0 ? originalMa50 : null,
+        rsi: rsi.length > 0 ? rsi : null,
+      });
+    } catch (error) {
+      console.error("Tech chart data calculation error:", error);
+      setChartData(null);
+    }
+  }, [data]);
+
+  // Rendering Logic
+  if (!chartData) {
+    return (
+      <div
+        style={{
+          width: "100%",
+          height: "400px",
+          display: "flex" /* ... styles */,
+        }}
+      >
+        기술적 분석 차트 데이터 부족...
+      </div>
+    );
+  }
+
+  const { dates, originalPrices, originalMa20, originalMa50, rsi } = chartData;
+
+  // Apply priceUnit to axis data
+  const pricesForAxis = originalPrices.map((p) =>
+    p !== null ? p / priceUnit : null
+  );
+  const ma20ForAxis = originalMa20
+    ? originalMa20.map((item) => item.value / priceUnit)
+    : [];
+  const ma50ForAxis = originalMa50
+    ? originalMa50.map((item) => item.value / priceUnit)
+    : [];
+
+  // Simplified hover templates
+  const priceHoverTemplate = `<b>%{x|%Y-%m-%d}</b><br>가격: %{y:${yAxisTickFormat}}${
+    priceSuffix ? priceSuffix : ""
+  }<extra></extra>`;
+  const maHoverTemplate = (period) =>
+    `<b>%{x|%Y-%m-%d}</b><br>MA(${period}): %{y:${yAxisTickFormat}}${
+      priceSuffix ? priceSuffix : ""
+    }<extra></extra>`;
+  const rsiHoverTemplate = `<b>%{x|%Y-%m-%d}</b><br>RSI(14): %{y:.1f}<extra></extra>`;
+
+  // Plotly Data Configuration
+  const plotData = [];
+  plotData.push({
+    x: dates,
+    y: pricesForAxis,
+    type: "scatter",
+    mode: "lines",
+    name: "가격",
+    line: { color: colors.primary, width: lineStyle.width },
+    hovertemplate: priceHoverTemplate,
+    connectgaps: true,
+    yaxis: "y",
+  });
+  if (originalMa20)
+    plotData.push({
+      x: originalMa20.map((item) => item.date),
+      y: ma20ForAxis,
+      type: "scatter",
+      mode: "lines",
+      name: "MA(20)",
+      line: { color: colors.ma1, width: lineStyle.width },
+      hovertemplate: maHoverTemplate(20),
+      connectgaps: true,
+      yaxis: "y",
+    });
+  if (originalMa50)
+    plotData.push({
+      x: originalMa50.map((item) => item.date),
+      y: ma50ForAxis,
+      type: "scatter",
+      mode: "lines",
+      name: "MA(50)",
+      line: { color: colors.ma2, width: lineStyle.width, dash: "dash" },
+      hovertemplate: maHoverTemplate(50),
+      connectgaps: true,
+      yaxis: "y",
+    });
+  if (rsi && showRSI)
+    plotData.push({
+      x: rsi.map((item) => item.date),
+      y: rsi.map((item) => item.value),
+      type: "scatter",
+      mode: "lines",
+      name: "RSI(14)",
+      line: { color: colors.secondary, width: 1 },
+      yaxis: "y2",
+      hovertemplate: rsiHoverTemplate,
+      connectgaps: true,
+    });
+
+  // --- Plotly Layout Modifications ---
+  const layout = {
+    autosize: true,
+    // <<< Conditional Title with Line Break >>>
+    title: {
+      text: `${data.name || data.symbol} (${data.symbol}) ${
+        isMobile ? "<br>" : ""
+      }기술적 분석`, // Add <br> on mobile
+      font: {
+        ...commonFont,
+        size: commonFont.size + (isMobile ? 1 : 4),
+        color: colors.text,
+      }, // Smaller title on mobile
+      y: 0.97,
+      x: 0.5,
+      xanchor: "center",
+    },
+    font: { ...commonFont, size: commonFont.size - (isMobile ? 1 : 0) }, // Smaller base font on mobile
+    paper_bgcolor: colors.background,
+    plot_bgcolor: colors.plotBackground,
+    xaxis: {
+      title: {
+        text: "날짜",
+        font: { size: commonFont.size - (isMobile ? 2 : 1) },
+      },
+      gridcolor: colors.grid,
+      linecolor: colors.axisLine,
+      tickfont: {
+        size: commonFont.size - (isMobile ? 3 : 2),
+        color: colors.textSecondary,
+      },
+      automargin: true,
+      showgrid: true,
+      tickformatstops: [
+        /*...*/
+      ],
+    },
+    yaxis: {
+      // Price Axis
+      // <<< Fix Title: Ensure suffix is added correctly >>>
+      title: {
+        text: `가격 ${priceSuffix ? `(${priceSuffix})` : ""}`,
+        font: {
+          size: commonFont.size - (isMobile ? 2 : 1),
+          color: colors.primary,
+        },
+      },
+      gridcolor: colors.grid,
+      linecolor: colors.axisLine,
+      tickfont: {
+        size: commonFont.size - (isMobile ? 3 : 2),
+        color: colors.textSecondary,
+      },
+      tickformat: yAxisTickFormat,
+      tickprefix: yAxisTickPrefix,
+      ticksuffix: priceSuffix && yAxisTickPrefix === "" ? priceSuffix : "",
+      automargin: true,
+      zeroline: false,
+      domain: showRSI && rsi ? [0.3, 1.0] : [0, 1.0], // <<< Adjust domain based on rsi & showRSI >>>
+    },
+    // <<< Legend Adjustment for Multi-Row >>>
+    legend: {
+      showlegend: true,
+      orientation: "h",
+      yanchor: "top",
+      y: isMobile ? -0.25 : -0.18, // Adjusted space below
+      xanchor: "center",
+      x: 0.5,
+      font: {
+        size: commonFont.size - (isMobile ? 2 : 1),
+        color: colors.textSecondary,
+      },
+      bgcolor: "rgba(0,0,0,0)",
+      borderwidth: 0,
+    },
+    // <<< Adjusted Margins for Mobile >>>
+    margin: {
+      l: isMobile ? 45 : 65,
+      r: isMobile ? (rsi && showRSI ? 50 : 30) : rsi && showRSI ? 65 : 50, // Adjust right margin based on RSI too
+      b: isMobile ? 130 : 110, // More bottom margin on mobile for legend
+      t: 60,
+      pad: 4,
+    },
+    hovermode: "x unified",
+    hoverlabel: {
+      bgcolor: colors.hoverBg,
+      font: { size: commonFont.size - 1, color: commonFont.color },
+      bordercolor: colors.hoverBorder,
+      align: "left",
+    },
+    dragmode: "zoom",
+  };
+  // Add RSI Y-axis and shapes conditionally
+  if (rsi && showRSI) {
+    layout.yaxis2 = {
+      // RSI Axis
+      title: {
+        text: "RSI(14)",
+        font: {
+          color: colors.secondary,
+          size: commonFont.size - (isMobile ? 2 : 1),
+        },
+      },
+      tickfont: {
+        color: colors.textSecondary,
+        size: commonFont.size - (isMobile ? 3 : 2),
+      },
+      side: "right",
+      overlaying: "y",
+      range: [0, 100],
+      showgrid: false,
+      zeroline: false,
+      linecolor: colors.axisLine,
+      automargin: true,
+      anchor: "x",
+      domain: [0, 0.25], // Bottom 25% height for RSI
+    };
+    layout.shapes = [
+      /* ... RSI shapes config ... */
+      {
+        type: "line",
+        x0: dates[0],
+        y0: 70,
+        x1: dates[dates.length - 1],
+        y1: 70,
+        line: { color: colors.sell, width: 1, dash: "dash" },
+        xref: "x",
+        yref: "y2",
+        layer: "below",
+      },
+      {
+        type: "line",
+        x0: dates[0],
+        y0: 30,
+        x1: dates[dates.length - 1],
+        y1: 30,
+        line: { color: colors.buy, width: 1, dash: "dash" },
+        xref: "x",
+        yref: "y2",
+        layer: "below",
+      },
+    ];
+    // Main y-axis domain already adjusted above
+  } else {
+    delete layout.yaxis2;
+    delete layout.shapes;
+  }
+
+  const showRsiToggleButton = rsi && rsi.length > 0;
+
+  return (
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      {/* RSI Toggle Button */}
+      {showRsiToggleButton && (
+        <button
+          onClick={() => setShowRSI(!showRSI)}
+          style={{
+            /* ... button style */ position: "absolute",
+            top: "10px",
+            right: "10px",
+            zIndex: 10 /*...*/,
+          }}
+        >
+          {showRSI ? "RSI 숨기기" : "RSI 표시"}
+        </button>
+      )}
+      <Plot
+        data={plotData}
+        layout={layout}
+        config={{
+          displayModeBar: "hover",
+          responsive: true,
+          displaylogo: false,
+          modeBarButtonsToRemove: ["select2d", "lasso2d"],
+          scrollZoom: true,
+        }}
+        // <<< Use key to force re-render on width change >>>
+        key={width}
+        style={{ width: "100%", height: "100%", minHeight: "490px" }}
+        useResizeHandler={true}
+        className="technical-analysis-chart"
+      />
+    </div>
+  );
+};
+
+export default TechnicalAnalysisChart;
+
+
+File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\pages\HomePage.jsx
+
+import BacktestForm from "../components/BacktestForm";
+import { Link } from "react-router-dom";
+
+const HomePage = ({ setBacktestResult }) => {
+  return (
+    <div className="container">
+      <header className="branding">
+        <Link to="/" className="logo-link">
+          <div className="app-logo">그때 살껄</div>
+        </Link>
+        <p className="tagline">과거 투자의 현재 가치를 간단하게 확인하세요</p>
+      </header>
+
+      <div className="main-content">
+        <div className="content-column">
+          {/* 채팅형 입력 폼 */}
+          <BacktestForm setBacktestResult={setBacktestResult} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default HomePage;
+
+
+File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\pages\ResultPage.jsx
+
+import React, { useEffect, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import PriceChart from "../components/charts/PriceChart";
+import DrawdownChart from "../components/charts/DrawdownChart";
+import ReturnDistributionChart from "../components/charts/ReturnDistributionChart";
+import TechnicalAnalysisChart from "../components/charts/TechnicalAnalysisChart";
+
+// --- Utility Hook for Window Size ---
+function useWindowSize() {
+  const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
+  useEffect(() => {
+    const handleResize = () => {
+      setSize([window.innerWidth, window.innerHeight]);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return size;
+}
+// --- End Utility Hook ---
+
+// --- Helper Function for Currency Formatting ---
+// <<< KRW 포맷 변경: 1,000,000원 형식으로 >>>
+const formatCurrency = (amount, currencyCode) => {
+  if (amount === null || amount === undefined || isNaN(amount)) {
+    return "-"; // Handle invalid amounts
+  }
+
+  const actualCurrencyCode = currencyCode === "KRW" ? "KRW" : "USD"; // Explicitly KRW or USD
+
+  try {
+    let numAmount = Number(amount);
+
+    if (actualCurrencyCode === "KRW") {
+      // <<< KRW: 숫자 포맷 후 '원' 접미사 추가 >>>
+      numAmount = Math.floor(numAmount); // 원화는 버림
+      return numAmount.toLocaleString("ko-KR") + "원";
+    } else {
+      // USD or others
+      // <<< USD: 기존 Intl.NumberFormat 사용 >>>
+      const options = {
+        style: "currency",
+        currency: "USD", // Hardcode USD for non-KRW cases for now
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      };
+      numAmount = parseFloat(numAmount.toFixed(2)); // Round to 2 decimals for USD
+      return numAmount.toLocaleString("en-US", options);
+    }
+  } catch (e) {
+    console.error(
+      "Error formatting currency:",
+      e,
+      "Amount:",
+      amount,
+      "Currency:",
+      currencyCode
+    );
+    // Fallback for very large/small numbers or other errors
+    // <<< Fallback도 KRW 형식에 맞게 수정 >>>
+    return `${actualCurrencyCode === "KRW" ? "" : "$"}${Number(
+      amount
+    ).toLocaleString()}${actualCurrencyCode === "KRW" ? "원" : ""}`;
+  }
+};
+// --- End Helper Function ---
+
+const ResultPage = ({ backtestResult }) => {
+  const navigate = useNavigate();
+  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [activeTab, setActiveTab] = useState("distribution");
+  // <<< Add window size hook >>>
+  const [width] = useWindowSize();
+  const isMobile = width < 600; // Define mobile breakpoint
+
+  useEffect(() => {
+    if (!backtestResult) {
+      navigate("/");
+    }
+  }, [backtestResult, navigate]);
+
+  if (!backtestResult) {
+    return null;
+  }
+
+  // --- Extract data safely ---
+  const resultData = backtestResult.result || {};
+  const assetCurrency = resultData.currency || "USD"; // Asset's actual currency
+  const initialInvestment = resultData.initial_investment || 0;
+
+  const getNumericValue = (value) => {
+    if (typeof value === "number") return value;
+    if (typeof value === "string") return parseFloat(value);
+    if (typeof value === "object" && value !== null) {
+      if (value._value !== undefined) return Number(value._value);
+      const values = Object.values(value);
+      if (values.length > 0 && typeof values[0] === "number") return values[0];
+    }
+    return NaN;
+  };
+
+  const rawFinalValue = getNumericValue(resultData.final_value);
+  const finalValue = !isNaN(rawFinalValue) ? rawFinalValue : 0;
+
+  const rawProfitPercentage = getNumericValue(resultData.profit_percentage);
+  const profitPercentage = !isNaN(rawProfitPercentage)
+    ? rawProfitPercentage
+    : 0;
+
+  const isProfit = profitPercentage >= 0;
+
+  let firstPrice = null;
+  let firstPriceDate = null;
+  let lastPrice = null;
+  let lastPriceDate = null;
+
+  if (resultData.daily_data && resultData.daily_data.length > 0) {
+    try {
+      const sortedDataForPrice = [...resultData.daily_data].sort(
+        (a, b) => new Date(a.date) - new Date(b.date)
+      );
+      const firstDataPoint = sortedDataForPrice[0];
+      if (
+        firstDataPoint &&
+        typeof firstDataPoint.close === "number" &&
+        firstDataPoint.date
+      ) {
+        firstPrice = firstDataPoint.close;
+        firstPriceDate = firstDataPoint.date;
+      }
+      const lastDataPoint = sortedDataForPrice[sortedDataForPrice.length - 1];
+      if (
+        lastDataPoint &&
+        typeof lastDataPoint.close === "number" &&
+        lastDataPoint.date
+      ) {
+        lastPrice = lastDataPoint.close;
+        lastPriceDate = lastDataPoint.date;
+      }
+    } catch (error) {
+      console.error("Error extracting first/last price:", error);
+      firstPrice = null;
+      lastPrice = null;
+      firstPriceDate = null;
+      lastPriceDate = null;
+    }
+  }
+
+  const [metrics, setMetrics] = useState({
+    maxDrawdown: "0.00",
+    volatility: "0.00",
+    sharpeRatio: "0.00",
+  });
+
+  useEffect(() => {
+    // --- Metrics calculation logic (no changes needed here from previous version) ---
+    const calculateMetrics = () => {
+      let maxDrawdown = "0.00";
+      let volatility = "0.00";
+      let sharpeRatio = "0.00";
+      try {
+        const dailyData = resultData.daily_data;
+        if (dailyData && dailyData.length > 1) {
+          const sortedData = [...dailyData].sort(
+            (a, b) => new Date(a.date) - new Date(b.date)
+          );
+          // MDD
+          let peak = -Infinity;
+          let maxDrawdownCalc = 0;
+          sortedData.forEach((day) => {
+            peak = Math.max(peak, day.close);
+            if (peak > 0) {
+              maxDrawdownCalc = Math.max(
+                maxDrawdownCalc,
+                (peak - day.close) / peak
+              );
+            }
+          });
+          // Returns
+          const dailyReturns = [];
+          for (let i = 1; i < sortedData.length; i++) {
+            const prevClose = sortedData[i - 1].close;
+            const currClose = sortedData[i].close;
+            dailyReturns.push(
+              prevClose > 0 ? (currClose - prevClose) / prevClose : 0
+            );
+          }
+          // Volatility, Sharpe
+          if (dailyReturns.length > 0) {
+            const avgReturn =
+              dailyReturns.reduce((sum, ret) => sum + ret, 0) /
+              dailyReturns.length;
+            const variance =
+              dailyReturns.reduce(
+                (sum, ret) => sum + Math.pow(ret - avgReturn, 2),
+                0
+              ) / (dailyReturns.length > 1 ? dailyReturns.length - 1 : 1);
+            const stdDev = Math.sqrt(variance);
+            const annualizedVolatility = stdDev * Math.sqrt(252);
+            // Annualized Return (CAGR)
+            const firstDate = new Date(sortedData[0].date);
+            const lastDate = new Date(sortedData[sortedData.length - 1].date);
+            const days = Math.max(
+              1,
+              (lastDate.getTime() - firstDate.getTime()) / (1000 * 60 * 60 * 24)
+            );
+            const years = days / 365.25;
+            const totalReturnDecimal = profitPercentage / 100;
+            const annualizedReturn =
+              years > 0 ? Math.pow(1 + totalReturnDecimal, 1 / years) - 1 : 0;
+            const sharpeRatioCalc =
+              annualizedVolatility > 0
+                ? annualizedReturn / annualizedVolatility
+                : 0;
+            // Format & Clamp
+            maxDrawdown = (maxDrawdownCalc * 100).toFixed(2);
+            volatility = (annualizedVolatility * 100).toFixed(2);
+            sharpeRatio = sharpeRatioCalc.toFixed(2);
+            if (parseFloat(maxDrawdown) > 100 || parseFloat(maxDrawdown) < 0)
+              maxDrawdown = Math.min(
+                100,
+                Math.max(0, parseFloat(maxDrawdown))
+              ).toFixed(2);
+            if (parseFloat(volatility) > 500 || parseFloat(volatility) < 0)
+              volatility = Math.min(
+                500,
+                Math.max(0, parseFloat(volatility))
+              ).toFixed(2);
+            if (Math.abs(parseFloat(sharpeRatio)) > 20)
+              sharpeRatio = parseFloat(sharpeRatio) < 0 ? "-20.00" : "20.00";
+          }
+        }
+      } catch (error) {
+        console.error("Error calculating metrics:", error);
+        maxDrawdown = "N/A";
+        volatility = "N/A";
+        sharpeRatio = "N/A";
+      }
+      setMetrics({ maxDrawdown, volatility, sharpeRatio });
+    };
+    if (backtestResult) {
+      calculateMetrics();
+    }
+  }, [backtestResult, resultData, profitPercentage]);
+
+  return (
+    <div className="container">
+      <header className="branding">
+        <Link to="/" className="logo-link">
+          <div className="app-logo">그때 살껄</div>
+        </Link>
+        <p className="tagline">
+          아주 쉬운 모의투자, 과거 투자의 가치를 손쉽게 확인하세요
+        </p>
+      </header>
+      <div className="main-content">
+        <div className="content-column">
+          {/* Chat History */}
+          <div className="chat-history result-chat">
+            <div className="system-message">어떤 백테스팅을 도와드릴까요?</div>
+            <div className="user-message">{backtestResult.request}</div>
+            <div className="system-message">
+              {resultData.name || resultData.symbol} ({resultData.symbol})의
+              백테스팅 결과입니다
+            </div>
+          </div>
+          <div className="results-container">
+            {/* Investment Summary */}
+            <div className="investment-summary">
+              <div className="summary-line">
+                {/* <<< Always format investment summary in KRW (1,000,000원 format) >>> */}
+                <span className="amount">
+                  {formatCurrency(initialInvestment, "KRW")}
+                </span>{" "}
+                →{" "}
+                <span className="amount">
+                  {formatCurrency(finalValue, "KRW")}
+                </span>
+                (
+                <span className={isProfit ? "profit" : "loss"}>
+                  {isProfit ? "+" : ""}
+                  {profitPercentage.toFixed(2)}%
+                </span>
+                )
+              </div>
+
+              {/* Price Trend Info */}
+              {/* <<< Format item price trend in the asset's actual currency >>> */}
+              {firstPrice !== null &&
+                lastPrice !== null &&
+                firstPriceDate &&
+                lastPriceDate && (
+                  <div
+                    className="price-trend-info"
+                    style={{
+                      fontSize: "0.8em", // Adjusted font size
+                      color: "#aaa",
+                      marginTop: "8px",
+                      fontWeight: "300",
+                      lineHeight: isMobile ? "1.6" : "1.2", // Conditional line height
+                    }}
+                  >
+                    <span style={{ fontWeight: "500" }}> 종목 가격: </span>
+                    <span className="start-price">
+                      ({firstPriceDate}){" "}
+                      {formatCurrency(firstPrice, assetCurrency)}{" "}
+                      {/* Use assetCurrency */}
+                    </span>
+                    {/* <<< Conditional Line Break for Mobile >>> */}
+                    {isMobile ? (
+                      <>
+                        <br />
+                        {" → "}
+                      </>
+                    ) : (
+                      " → "
+                    )}
+                    <span className="end-price">
+                      ({lastPriceDate}){" "}
+                      {formatCurrency(lastPrice, assetCurrency)}{" "}
+                      {/* Use assetCurrency */}
+                    </span>
+                  </div>
+                )}
+            </div>
+
+            {/* Chart Area */}
+            <div className="chart-container">
+              {/* Pass the asset's actual currency to the chart */}
+              <PriceChart data={resultData} currency={assetCurrency} />
+            </div>
+
+            {/* Key Metrics */}
+            <div className="key-metrics">
+              {/* <<< Always format monetary metrics in KRW (1,000,000원 format) >>> */}
+              <div className="metric-item">
+                <span className="metric-label">초기 투자금</span>
+                <span className="metric-value">
+                  {formatCurrency(initialInvestment, "KRW")}
+                </span>
+              </div>
+              <div className="metric-item">
+                <span className="metric-label">최종 평가금액</span>
+                <span className="metric-value">
+                  {formatCurrency(finalValue, "KRW")}
+                </span>
+              </div>
+              <div className="metric-item">
+                <span className="metric-label">수익률</span>
+                <span
+                  className={`metric-value ${isProfit ? "profit" : "loss"}`}
+                >
+                  {isProfit ? "+" : ""}
+                  {profitPercentage.toFixed(2)}%
+                </span>
+              </div>
+            </div>
+          </div>
+          {/* Advanced Analysis Toggle */}
+          <button
+            className="advanced-toggle"
+            onClick={() => setShowAdvanced(!showAdvanced)}
+          >
+            {showAdvanced ? "기본 정보만 보기" : "고급 분석 정보 보기 +"}
+          </button>
+          {/* Advanced Analysis Section */}
+          <div className={`advanced-content ${showAdvanced ? "show" : ""}`}>
+            {/* Technical Indicators Summary */}
+            <div className="technical-info">
+              <div className="technical-item">
+                <span className="technical-label">최대 낙폭 (MDD)</span>
+                <span className="technical-value">
+                  {metrics.maxDrawdown === "N/A"
+                    ? "N/A"
+                    : `${metrics.maxDrawdown}%`}
+                </span>
+              </div>
+              <div className="technical-item">
+                <span className="technical-label">변동성 (연율화)</span>
+                <span className="technical-value">
+                  {metrics.volatility === "N/A"
+                    ? "N/A"
+                    : `${metrics.volatility}%`}
+                </span>
+              </div>
+              <div className="technical-item">
+                <span className="technical-label">샤프 비율</span>
+                <span className="technical-value">{metrics.sharpeRatio}</span>
+              </div>
+            </div>
+            {/* Description */}
+            <p className="volatility-description">
+              변동성은 자산 가격의 불확실성을 측정합니다. 높은 변동성은 큰 가격
+              움직임을 의미하며, 샤프 비율은 위험 대비 수익을 평가합니다. 샤프
+              비율이 높을수록 위험 대비 더 나은 수익을 나타냅니다. 최대
+              낙폭(MDD)은 투자 기간 중 최고점에서 최저점까지의 가장 큰
+              하락폭입니다.
+            </p>
+            {/* Tabs */}
+            <div className="advanced-tabs">
+              <button
+                className={`advanced-tab ${
+                  activeTab === "distribution" ? "active" : ""
+                }`}
+                onClick={() => setActiveTab("distribution")}
+              >
+                수익률 분포
+              </button>
+              <button
+                className={`advanced-tab ${
+                  activeTab === "drawdown" ? "active" : ""
+                }`}
+                onClick={() => setActiveTab("drawdown")}
+              >
+                최대 낙폭
+              </button>
+              <button
+                className={`advanced-tab ${
+                  activeTab === "technical" ? "active" : ""
+                }`}
+                onClick={() => setActiveTab("technical")}
+              >
+                이동평균/RSI
+              </button>
+            </div>
+            {/* Tab Content */}
+            <div
+              className={`advanced-tab-content ${
+                activeTab === "distribution" ? "active" : ""
+              }`}
+            >
+              <div className="chart-container">
+                <ReturnDistributionChart data={resultData} />
+              </div>
+              <p className="tab-description">
+                일일 수익률 분포는 각 거래일의 수익률을 히스토그램이나
+                밀도곡선으로 나타낸 것이고, 분포 폭이 좁고 평균 근처에 모여
+                있으면 변동성이 낮아 안정적인 시장 환경을 의미하므로, 이를 통해
+                포지션 사이즈나 리스크 관리 전략을 점검하면 좋습니다.
+              </p>
+            </div>
+            <div
+              className={`advanced-tab-content ${
+                activeTab === "drawdown" ? "active" : ""
+              }`}
+            >
+              <div className="chart-container">
+                <DrawdownChart data={resultData} />
+              </div>
+              <p className="tab-description">
+                최대 낙폭(MDD)은 포트폴리오 가치가 최고점에서 최저점으로 하락한
+                최대 비율을 의미하고, 이 값이 작을수록 손실 방어력이 높다는
+                뜻이므로, 자신의 위험 허용 범위를 설정하거나 방어적 전략을
+                검토할 때 참고하면 좋습니다.
+              </p>
+            </div>
+            <div
+              className={`advanced-tab-content ${
+                activeTab === "technical" ? "active" : ""
+              }`}
+            >
+              <div className="chart-container">
+                {/* Pass the asset's actual currency to the chart */}
+                <TechnicalAnalysisChart
+                  data={resultData}
+                  currency={assetCurrency}
+                />
+              </div>
+              <p className="tab-description">
+                이동평균선은 일정 기간 종가의 평균을 연결해 추세를 부드럽게
+                보여주는 지표이고, 단기선이 장기선을 상향 돌파할 때 매수, 하향
+                이탈할 때 매도 시그널로 활용하면 좋습니다.
+                <br />
+                <br />
+                RSI(상대강도지수)는 최근 일정 기간의 평균 상승폭과 평균 하락폭을
+                비교해 0~100 범위로 표시하는 모멘텀 지표이고, 70 이상이면 과매수
+                구간으로 조정 가능성이, 30 이하이면 과매도 구간으로 반등
+                가능성이 높으니 매매 타이밍 보조지표로 활용하면 좋습니다.
+              </p>
+            </div>
+          </div>{" "}
+          {/* advanced-content end */}
+          {/* Navigation Button */}
+          <div className="navigation-elements">
+            <button className="nav-button" onClick={() => navigate("/")}>
+              <i
+                className="fas fa-arrow-left"
+                style={{ marginRight: "8px" }}
+              ></i>{" "}
+              새로운 투자 분석하기
+            </button>
+          </div>
+        </div>{" "}
+        {/* content-column end */}
+      </div>{" "}
+      {/* main-content end */}
+    </div> /* container end */
+  );
+};
+
+export default ResultPage;
+
+
+File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\services\api.js
+
+import axios from "axios";
+
+// API 기본 주소 설정
+const API_BASE_URL = "http://localhost:8001";
+
+// Axios 인스턴스 생성
+const apiClient = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+/**
+ * 자연어 백테스팅 API 호출
+ * @param {string} prompt 자연어 백테스팅 요청 문자열
+ * @returns {Promise} 백테스팅 결과
+ */
+export const naturalBacktest = async (prompt) => {
+  try {
+    const response = await apiClient.post("/natural-backtest", {
+      prompt,
+    });
+
+    // 디버깅: API 응답 구조 로깅
+    console.log("API 응답 구조:", JSON.stringify(response.data, null, 2));
+
+    return response.data;
+  } catch (error) {
+    console.error("자연어 백테스팅 API 오류:", error);
+    throw error;
+  }
+};
+
+export default {
+  naturalBacktest,
+};
+
+
+File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\utils\analysisUtils.js
+
+// src/utils/analysisUtils.js
+
+/**
+ * 일별 데이터를 기반으로 투자 성과를 계산합니다.
+ * @param {Array} dailyData 일별 가격 데이터 배열
+ * @param {number} investmentAmount 초기 투자 금액
+ * @returns {Object} 투자 성과 분석 결과
+ */
+export const calculateInvestmentPerformance = (dailyData, investmentAmount) => {
+  if (!dailyData || dailyData.length < 2) {
+    return null;
+  }
+
+  const sortedData = [...dailyData].sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
+
+  // 초기 및 최종 가격
+  const initialPrice = sortedData[0].close;
+  const finalPrice = sortedData[sortedData.length - 1].close;
+
+  // 매수 수량 및 최종 가치
+  const sharesBought = investmentAmount / initialPrice;
+  const finalValue = sharesBought * finalPrice;
+
+  // 수익 계산
+  const profit = finalValue - investmentAmount;
+  const profitPercentage = (profit / investmentAmount) * 100;
+
+  // 일간 수익률 계산
+  const dailyReturns = [];
+  for (let i = 1; i < sortedData.length; i++) {
+    const prevClose = sortedData[i - 1].close;
+    const currClose = sortedData[i].close;
+    const dailyReturn = (currClose / prevClose - 1) * 100;
+    dailyReturns.push({
+      date: sortedData[i].date,
+      return: dailyReturn,
+    });
+  }
+
+  // 누적 수익률 계산
+  const cumulativeReturns = [];
+  let cumReturn = 0;
+
+  for (let i = 0; i < dailyReturns.length; i++) {
+    const dailyReturn = dailyReturns[i].return / 100; // 소수점으로 변환
+    cumReturn = (1 + cumReturn) * (1 + dailyReturn) - 1;
+    cumulativeReturns.push({
+      date: dailyReturns[i].date,
+      return: cumReturn * 100,
+    });
+  }
+
+  // 최대 낙폭(MDD) 계산
+  let peak = sortedData[0].close;
+  let maxDrawdown = 0;
+
+  const drawdowns = sortedData.map((day) => {
+    peak = Math.max(peak, day.close);
+    const drawdown = ((peak - day.close) / peak) * 100;
+    maxDrawdown = Math.max(maxDrawdown, drawdown);
+
+    return {
+      date: day.date,
+      drawdown: drawdown,
+    };
+  });
+
+  // 변동성 계산 (연간화된 표준편차)
+  const returns = dailyReturns.map((day) => day.return);
+  const avgReturn = returns.reduce((sum, ret) => sum + ret, 0) / returns.length;
+  const variance =
+    returns.reduce((sum, ret) => sum + Math.pow(ret - avgReturn, 2), 0) /
+    returns.length;
+  const stdDev = Math.sqrt(variance);
+  const annualizedVolatility = stdDev * Math.sqrt(252); // 252 거래일 기준
+
+  // 샤프 비율 계산 (무위험 수익률 0% 가정)
+  const annualizedReturn = profitPercentage / (sortedData.length / 252);
+  const sharpeRatio =
+    annualizedVolatility > 0 ? annualizedReturn / annualizedVolatility : 0;
+
+  return {
+    initialPrice,
+    finalPrice,
+    sharesBought,
+    finalValue,
+    profit,
+    profitPercentage,
+    maxDrawdown,
+    volatility: annualizedVolatility,
+    sharpeRatio,
+    dailyReturns,
+    cumulativeReturns,
+    drawdowns,
+  };
+};
+
+/**
+ * 추가 기술적 지표 계산 (이동평균, RSI 등)
+ * @param {Array} dailyData 일별 가격 데이터 배열
+ * @returns {Object} 기술적 지표 계산 결과
+ */
+export const calculateTechnicalIndicators = (dailyData) => {
+  // 여기에 이동평균, 볼린저 밴드, RSI 등의 계산 추가 가능
+  if (!dailyData || dailyData.length < 20) {
+    return null;
+  }
+
+  const sortedData = [...dailyData].sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
+
+  // 이동평균 계산 (20일, 50일)
+  const ma20 = calculateMovingAverage(sortedData, 20);
+  const ma50 = calculateMovingAverage(sortedData, 50);
+
+  return {
+    ma20,
+    ma50,
+    // 추가 지표들...
+  };
+};
+
+// 이동평균 계산 헬퍼 함수
+const calculateMovingAverage = (data, period) => {
+  const result = [];
+
+  for (let i = period - 1; i < data.length; i++) {
+    const slice = data.slice(i - period + 1, i + 1);
+    const sum = slice.reduce((total, day) => total + day.close, 0);
+    const avg = sum / period;
+
+    result.push({
+      date: data[i].date,
+      value: avg,
+    });
+  }
+
+  return result;
+};
+
+
+File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\utils\formatUtils.js
+
+// src/utils/formatUtils.js (새 파일 생성 또는 기존 유틸리티 파일에 추가)
+
+/**
+ * 금액을 통화 형식으로 포맷팅합니다
+ * @param {number} amount - 포맷팅할 금액
+ * @param {string} currency - 통화 코드 (KRW 또는 USD)
+ * @param {boolean} includeCurrencySymbol - 통화 기호 포함 여부
+ * @returns {string} 포맷팅된 금액 문자열
+ */
+export const formatCurrency = (
+  amount,
+  currency = "KRW",
+  includeCurrencySymbol = true
+) => {
+  if (!amount && amount !== 0) return "-";
+
+  if (currency === "USD") {
+    const formatted = amount.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+    return includeCurrencySymbol ? `$${formatted}` : formatted;
+  } else {
+    // 기본값은 KRW (원화)
+    const formatted = amount.toLocaleString("ko-KR");
+    return includeCurrencySymbol ? `${formatted}원` : formatted;
+  }
+};
+

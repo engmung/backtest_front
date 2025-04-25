@@ -1,0 +1,22 @@
+{
+  "name": "그때 살껄 - AI 백테스팅 도구",
+  "short_name": "그때 살껄",
+  "icons": [
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "theme_color": "#1a202c",
+  "background_color": "#1a202c",
+  "display": "standalone",
+  "start_url": "/"
+}

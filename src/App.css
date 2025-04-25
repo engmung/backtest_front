@@ -1,0 +1,753 @@
+.tab-description {
+  margin-top: 15px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.volatility-description {
+  margin: 15px 0 20px 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  padding: 0 5px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 15px;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Noto+Sans+KR:wght@300;400;700&display=swap");
+
+:root {
+  --background-color: #1a202c; /* 다크 네이비 */
+  --surface-color: #2d3748; /* 약간 밝은 네이비 */
+  --primary-color: #f6e05e; /* 골드 (강조) */
+  --secondary-color: #a0aec0; /* 밝은 회색 (보조) */
+  --text-primary: #e2e8f0; /* 밝은 텍스트 */
+  --text-secondary: #a0aec0; /* 회색 텍스트 */
+  --error-color: #feb2b2; /* 연한 빨강 (에러) */
+  --success-color: #9ae6b4; /* 연한 녹색 (성공) */
+  --loss-color: #feb2b2; /* 연한 빨강 (손실) */
+  --border-color: #4a5568;
+  --input-bg: #2d3748;
+  --chat-bot-bg: #3a475a; /* 챗봇 메시지 배경 */
+  --chat-user-bg: #4a5568; /* 사용자 메시지 배경 */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #0f172a; /* 기본 배경색 */
+  background-image: radial-gradient(
+      ellipse at top left,
+      rgba(139, 92, 246, 0.3) 0%,
+      transparent 50%
+    ),
+    /* 연보라 */
+      radial-gradient(
+        ellipse at top right,
+        rgba(59, 130, 246, 0.3) 0%,
+        transparent 50%
+      ),
+    /* 밝은 파랑 */
+      radial-gradient(
+        ellipse at bottom left,
+        rgba(34, 197, 94, 0.2) 0%,
+        transparent 50%
+      ),
+    /* 연두 */
+      radial-gradient(
+        ellipse at bottom right,
+        rgba(20, 83, 45, 0.3) 0%,
+        transparent 60%
+      ); /* 짙은 녹색 */
+  color: var(--text-primary);
+  font-family: "Noto Sans KR", "Montserrat", sans-serif;
+  line-height: 1.7;
+}
+
+.container {
+  width: 95%;
+  max-width: 800px; /* 최대 너비 조정 */
+  margin: 1.5rem auto; /* 상단 여백 줄임 */
+}
+
+/* --- 브랜딩 요소 --- */
+.branding {
+  text-align: center;
+  margin-bottom: 1.5rem; /* 여백 줄임 */
+  padding-bottom: 0.8rem;
+}
+
+.app-logo {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color); /* 골드 색상 적용 */
+  margin-bottom: 0.2rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.tagline {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+/* --- 레이아웃 --- */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.content-column {
+  background-color: var(--surface-color);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* --- 챗 컨테이너 --- */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* --- 채팅 영역 --- */
+.chat-history {
+  min-height: 150px;
+  max-height: 300px;
+  height: auto;
+  background-color: var(--background-color);
+  border-radius: 12px;
+  padding: 12px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 0.8rem;
+  /* 스크롤바 숨기기 */
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Chrome, Safari를 위한 스크롤바 숨기기 */
+.chat-history::-webkit-scrollbar {
+  display: none;
+}
+
+.result-chat {
+  height: auto;
+  max-height: none;
+}
+
+.user-message,
+.system-message {
+  padding: 10px 14px;
+  border-radius: 18px;
+  max-width: 80%;
+  margin-bottom: 6px;
+  animation: fadeIn 0.3s ease;
+  word-break: break-word;
+}
+
+.user-message {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  font-weight: 500;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.system-message {
+  background-color: var(--chat-bot-bg);
+  color: var(--text-primary);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.error-message {
+  background-color: rgba(254, 178, 178, 0.2);
+  color: var(--error-color);
+  border: 1px dashed var(--error-color);
+}
+
+.loading-message {
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- 버튼 및 입력 영역 --- */
+.chat-input-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 0.8rem;
+  position: relative;
+}
+
+/* 채팅 입력창 스타일 수정 - textarea로 변경 */
+.chat-input {
+  flex-grow: 1;
+  padding: 12px 15px;
+  background-color: var(--input-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 25px;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  line-height: 1.5;
+  resize: none;
+  overflow-y: hidden;
+  min-height: 42px;
+  max-height: 150px;
+  font-family: inherit;
+  /* 스크롤바 숨기기 */
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Chrome, Safari를 위한 스크롤바 숨기기 */
+.chat-input::-webkit-scrollbar {
+  display: none;
+}
+
+.chat-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(246, 224, 94, 0.3), 0 3px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.send-button {
+  background: linear-gradient(135deg, var(--primary-color), #ecc94b);
+  color: var(--background-color);
+  font-weight: 700;
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.send-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.send-button:active {
+  transform: translateY(0);
+}
+
+/* --- 예시 프롬프트 버튼 --- */
+.example-prompts {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 0.5rem 0 0.2rem; /* 간격 조정 */
+}
+
+.prompt-button {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  padding: 6px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.prompt-button:hover {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+/* --- 결과 영역 --- */
+.results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 0.8rem;
+}
+
+.investment-summary {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.amount {
+  color: var(--primary-color);
+}
+
+.profit {
+  color: var(--success-color);
+}
+
+.loss {
+  color: var(--loss-color);
+}
+
+.chart-container {
+  width: 100%;
+  height: 450px;
+  background-color: var(--background-color);
+  border-radius: 12px;
+  margin-bottom: 0.8rem;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  padding-top: 10px; /* 그래프를 아래로 10px 내림 */
+}
+
+/* Fix for Plotly charts */
+.js-plotly-plot,
+.plot-container {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.main-svg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.price-chart {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Key metrics styles */
+.key-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  text-align: center;
+}
+
+.metric-item {
+  background-color: var(--background-color);
+  padding: 0.8rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.metric-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.metric-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+}
+
+.metric-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.metric-value.profit {
+  color: var(--success-color);
+}
+
+.metric-value.loss {
+  color: var(--loss-color);
+}
+
+/* --- 고급 분석 영역 --- */
+.advanced-section {
+  margin-top: 1rem;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.advanced-toggle {
+  width: 100%;
+  background-color: rgba(246, 224, 94, 0.1);
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 1.2rem; /* 메트릭 박스와의 간격 추가 */
+  margin-bottom: 1rem;
+}
+
+.advanced-toggle:hover {
+  background-color: rgba(246, 224, 94, 0.2);
+  transform: translateY(-1px);
+}
+
+.advanced-content {
+  display: none;
+  padding: 1rem;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-top: 0.8rem;
+}
+
+.advanced-content.show {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+.advanced-tabs {
+  display: flex;
+  gap: 5px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 1rem;
+  overflow-x: auto;
+  /* 스크롤바 숨기기 */
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Chrome, Safari를 위한 스크롤바 숨기기 */
+.advanced-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.advanced-tab {
+  background: transparent;
+  color: var(--text-secondary);
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  font-size: 0.9rem;
+}
+
+.advanced-tab.active {
+  color: var(--primary-color);
+}
+
+.advanced-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+}
+
+.advanced-tab:hover:not(.active) {
+  color: var(--text-primary);
+}
+
+.advanced-tab-content {
+  display: none;
+}
+
+.advanced-tab-content.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+.volatility-description {
+  margin: 15px 0 20px 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  padding: 0 5px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 15px;
+}
+
+.technical-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.technical-item {
+  background-color: var(--surface-color);
+  padding: 0.8rem;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.technical-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.technical-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+.technical-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* --- 네비게이션 요소 --- */
+/* --- 네비게이션 요소 --- */
+.navigation-elements {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.2rem;
+  width: 100%;
+}
+
+.nav-button {
+  background: linear-gradient(135deg, var(--primary-color), #ecc94b);
+  color: var(--background-color);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 내부 콘텐츠 중앙 정렬 */
+  gap: 8px;
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.nav-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.nav-button i {
+  font-size: 1.1rem;
+  margin: 0; /* 기존 마진 제거 */
+}
+
+/* 스크롤바 스타일링 - 전역 스크롤바 숨김 */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* 모든 요소에 스크롤바 숨김 적용 */
+* {
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .app-logo {
+    font-size: 1.8rem; /* 더 작게 조정 */
+  }
+
+  .tagline {
+    font-size: 0.8rem; /* 더 작게 조정 */
+  }
+
+  .chat-history {
+    max-height: 280px; /* 채팅창 높이 증가 */
+  }
+
+  .user-message,
+  .system-message {
+    font-size: 0.85rem; /* 더 작은 글자 크기 */
+    padding: 8px 12px;
+    margin-bottom: 4px; /* 간격 줄임 */
+  }
+
+  .chat-input {
+    font-size: 0.85rem; /* 더 작은 글자 크기 */
+    padding: 10px 12px;
+    min-height: 38px;
+  }
+
+  .investment-summary {
+    font-size: 1rem; /* 더 작게 조정 */
+  }
+
+  .key-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-item {
+    padding: 0.6rem; /* 패딩 줄임 */
+  }
+
+  .metric-label {
+    font-size: 0.75rem; /* 더 작게 조정 */
+  }
+
+  .metric-value {
+    font-size: 0.95rem; /* 더 작게 조정 */
+  }
+
+  .technical-info {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* 모바일에서 크기 조정 */
+  .technical-label {
+    font-size: 0.7rem;
+  }
+
+  .technical-value {
+    font-size: 0.85rem;
+  }
+
+  .price-trend-info {
+    font-size: 0.7rem !important;
+  }
+
+  .tab-description,
+  .volatility-description {
+    font-size: 0.8rem;
+  }
+}
+
+/* Fix for Bootstrap components */
+.card {
+  background-color: transparent;
+  border: none;
+}
+
+.card-body {
+  padding: 0;
+}
+
+/* 간소화된 Footer 스타일 - App.css 파일 하단에 추가 */
+
+.simple-footer {
+  margin-top: 2rem;
+  padding: 1.2rem;
+  background-color: var(--surface-color);
+  border-top: 1px solid var(--border-color);
+  border-radius: 12px;
+  text-align: center;
+  width: 95%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.simple-footer p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0.5rem 0;
+}
+
+.disclaimer {
+  font-size: 0.8rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+}
+
+.copyright {
+  font-size: 0.8rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 0.8rem;
+}
+
+.version {
+  display: inline-block;
+  background-color: rgba(246, 224, 94, 0.2);
+  color: var(--primary-color);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+}
+
+/* 모바일 반응형 */
+/* 간소화된 Footer 스타일 - App.css 파일 하단에 추가 */
+
+.minimal-footer {
+  margin-top: 2rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  width: 95%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.minimal-footer p {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .minimal-footer {
+    padding: 0.8rem 0;
+  }
+
+  .footer-service {
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .footer-divider {
+    display: none; /* 모바일에서는 구분선 숨김 */
+  }
+}
+
+/* App.css에 추가할 로고 링크 스타일 */
+
+.logo-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.logo-link:hover .app-logo {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  transform: translateY(-2px);
+  transition: all 0.2s ease;
+}
