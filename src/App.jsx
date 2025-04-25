@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next"; // <-- 1. Import SpeedInsights
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -27,7 +28,8 @@ function App() {
           />
         </Routes>
         <Footer />
-        <Analytics /> {/* 여기에 Analytics 컴포넌트 추가 */}
+        <Analytics /> {/* Vercel Analytics 컴포넌트 */}
+        <SpeedInsights /> {/* <-- 2. Add SpeedInsights component here */}
       </div>
     </Router>
   );
