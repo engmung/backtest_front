@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "http://aengmung.tplinkdns.com:8010/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
