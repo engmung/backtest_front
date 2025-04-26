@@ -1,3 +1,8 @@
 User-agent: *
 Allow: /
-Sitemap: https://yourwebsite.com/sitemap.xml
+Disallow: /api/
+Disallow: /_next/static/
+Disallow: /_vercel/
+
+# 검색엔진에 중요한 페이지 우선순위 알림
+Sitemap: https://backtest.ai.kr/sitemap.xml
