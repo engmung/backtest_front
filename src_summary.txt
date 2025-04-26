@@ -136,7 +136,7 @@ body {
 /* --- 채팅 영역 --- */
 .chat-history {
   min-height: 150px;
-  max-height: 300px;
+  max-height: 300px; /* 최대 높이 고정 */
   height: auto;
   background-color: var(--background-color);
   border-radius: 12px;
@@ -150,6 +150,7 @@ body {
   /* 스크롤바 숨기기 */
   -ms-overflow-style: none; /* IE, Edge */
   scrollbar-width: none; /* Firefox */
+  scroll-behavior: smooth; /* 부드러운 스크롤 */
 }
 
 /* Chrome, Safari를 위한 스크롤바 숨기기 */
@@ -217,6 +218,7 @@ body {
   gap: 10px;
   margin-bottom: 0.8rem;
   position: relative;
+  align-items: flex-end; /* 버튼을 텍스트 영역 하단에 정렬 */
 }
 
 /* 채팅 입력창 스타일 수정 - textarea로 변경 */
@@ -771,6 +773,8 @@ body {
 File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\src\App.jsx
 
 import { useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react"; // <-- 1. Import SpeedInsights
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -778,7 +782,7 @@ import "./App.css";
 // 컴포넌트 임포트
 import HomePage from "./pages/HomePage";
 import ResultPage from "./pages/ResultPage";
-import Footer from "./components/Footer"; // Footer 임포트 추가
+import Footer from "./components/Footer";
 
 function App() {
   // 백테스트 결과를 저장할 상태
@@ -798,6 +802,8 @@ function App() {
           />
         </Routes>
         <Footer />
+        <Analytics /> {/* Vercel Analytics 컴포넌트 */}
+        <SpeedInsights /> {/* <-- 2. Add SpeedInsights component here */}
       </div>
     </Router>
   );
@@ -1287,13 +1293,13 @@ import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { naturalBacktest } from "../services/api";
 
-const examplePrompts = ["삼성전자", "금", "비트코인", "QQQ"];
+const examplePrompts = ["삼성전자", "금", "비트코인", "엔비디아"];
 
 const fullPrompts = {
   삼성전자: "삼성전자를 3개월 전에 100만원어치 샀다면 지금 얼마가 되었을까?",
-  금: "1년 전, 금에 1000만원 투자했다면 수익이 얼마나 났을까요?",
+  금: "1년 전, 금에 1000만원 투자했다면 수익이 얼마나 났을까?",
   비트코인: "비트코인을 3년전에 100만원어치 사서 1년전에 팔았다면?",
-  QQQ: "QQQ ETF 1년 전 200만원 투자 결과",
+  엔비디아: "엔비디아 1년 전 200만원 투자 결과",
 };
 
 const BacktestForm = ({ setBacktestResult }) => {
@@ -1308,12 +1314,28 @@ const BacktestForm = ({ setBacktestResult }) => {
     },
   ]);
   const chatEndRef = useRef(null);
+  const textareaRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // 채팅이 업데이트될 때마다 스크롤을 아래로 이동
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    // 채팅이 업데이트될 때마다 채팅창 내부에서만 스크롤을 아래로 이동
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
   }, [chatHistory]);
+
+  // 텍스트 입력 영역 높이 자동 조절
+  useEffect(() => {
+    const adjustTextareaHeight = () => {
+      const textarea = textareaRef.current;
+      if (textarea) {
+        textarea.style.height = "auto";
+        textarea.style.height = `${Math.min(textarea.scrollHeight, 150)}px`;
+      }
+    };
+
+    adjustTextareaHeight();
+  }, [prompt]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -1394,6 +1416,16 @@ const BacktestForm = ({ setBacktestResult }) => {
 
   const handleExampleClick = (example) => {
     setPrompt(fullPrompts[example] || example);
+    // textarea 높이 즉시 조정
+    setTimeout(() => {
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "auto";
+        textareaRef.current.style.height = `${Math.min(
+          textareaRef.current.scrollHeight,
+          150
+        )}px`;
+      }
+    }, 0);
   };
 
   return (
@@ -1428,13 +1460,14 @@ const BacktestForm = ({ setBacktestResult }) => {
       {/* 채팅 입력 영역 */}
       <form onSubmit={handleSubmit}>
         <div className="chat-input-container">
-          <input
-            type="text"
+          <textarea
+            ref={textareaRef}
             className="chat-input"
             placeholder="투자 시나리오를 입력하세요"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             disabled={loading}
+            rows="1"
             required
           />
           <button type="submit" className="send-button" disabled={loading}>
@@ -2898,7 +2931,9 @@ const HomePage = ({ setBacktestResult }) => {
         <Link to="/" className="logo-link">
           <div className="app-logo">그때 살껄</div>
         </Link>
-        <p className="tagline">과거 투자의 현재 가치를 간단하게 확인하세요</p>
+        <p className="tagline">
+          아주 쉬운 모의투자, 과거 투자의 가치를 손쉽게 확인하세요
+        </p>
       </header>
 
       <div className="main-content">
@@ -2995,7 +3030,32 @@ const ResultPage = ({ backtestResult }) => {
     if (!backtestResult) {
       navigate("/");
     }
+
+    // 결과 페이지로 이동 시 페이지 상단으로 스크롤
+    window.scrollTo(0, 0);
   }, [backtestResult, navigate]);
+
+  // 이것이 추가할 새로운 useEffect입니다
+  useEffect(() => {
+    // 채팅창 내부에서만 스크롤 되도록 설정
+    const chatContainer = document.querySelector(".chat-history");
+
+    // 스크롤 이벤트 핸들러
+    const handleScroll = (e) => {
+      // 채팅 컨테이너 내부의 이벤트가 아니면 처리하지 않음
+      if (!chatContainer || !chatContainer.contains(e.target)) {
+        // 다른 영역의 스크롤은 필요한 경우에만 허용
+      }
+    };
+
+    // 이벤트 리스너 등록
+    window.addEventListener("scroll", handleScroll, true);
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("scroll", handleScroll, true);
+    };
+  }, []);
 
   if (!backtestResult) {
     return null;
@@ -3424,7 +3484,7 @@ File: C:\Users\lsh\Desktop\2024\25_1분기\Ai Agent\경제루틴\Stock-frontend\
 import axios from "axios";
 
 // API 기본 주소 설정
-const API_BASE_URL = "http://localhost:8001";
+const API_BASE_URL = "https://aengmung.tplinkdns.com";
 
 // Axios 인스턴스 생성
 const apiClient = axios.create({
